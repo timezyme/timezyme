@@ -1,0 +1,14 @@
+@import "tailwindcss" theme(static);
+@import "@nuxt/ui-pro";
+
+/* see https://github.com/nuxt-modules/tailwindcss/issues/820#issuecomment-2683242986 */
+@source "../../../layers/auth/";
+@source "../../../layers/blog/";
+@source "../../../layers/core/";
+@source "../../../layers/dashboard/";
+@source "../../../layers/db/";
+@source "../../../layers/docs/";
+@source "../../../layers/email/";
+@source "../../../layers/payment/";
+@source "../../../layers/testimonials/";
+@source "../../../layers/waitlist/";
