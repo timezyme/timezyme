@@ -26,7 +26,7 @@ export const env = createEnv({
     NUXT_PRIVATE_POLAR_WEBHOOK_SECRET: z.string().min(10),
     NUXT_PRIVATE_RESEND_API_TOKEN: z.string().min(32).optional(),
     NUXT_SESSION_PASSWORD: z.string().min(32),
-    NUXT_UI_PRO_LICENSE: z.string().uuid(),
+    // NUXT_UI_PRO_LICENSE: z.string().uuid(),
   },
   skipValidation,
 })

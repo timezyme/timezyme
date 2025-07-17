@@ -2,10 +2,6 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 
 const navigation = inject<Ref<Array<ContentNavigationItem>>>('navigationDocs')
-
-definePageMeta({
-  layout: 'docs',
-})
 </script>
 
 <template>

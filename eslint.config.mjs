@@ -62,6 +62,13 @@ export default withNuxt(
         'sort-imports': 'off',
       },
     },
+    {
+      name: 'scripts-rules',
+      files: ['scripts/**/*.{js,mjs,ts}'],
+      rules: {
+        'node/prefer-global/process': 'off',
+      },
+    },
   ),
   // ...your other rules
 )

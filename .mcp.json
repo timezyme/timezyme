@@ -1,0 +1,39 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--read-only",
+        "--project-ref=TimeZyme"
+      ],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "sbp_a4c4b37478b830f8151d5c90858d271c7081f7f6"
+      }
+    },
+    "sequentialthinking": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/sequentialthinking"]
+    },
+    "playwright": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/playwright"]
+    },
+    "cloudflare": {
+      "command": "npx",
+      "args": ["mcp-remote", "https://docs.mcp.cloudflare.com/sse"]
+    },
+    "snap-happy": {
+      "command": "npx",
+      "args": ["@mariozechner/snap-happy"],
+      "env": {
+        "SNAP_HAPPY_SCREENSHOT_PATH": "/Users/spasco/Screenshots"
+      }
+    },
+    "mastra": {
+      "command": "npx",
+      "args": ["-y", "@mastra/mcp-docs-server"]
+    }
+  }
+}
