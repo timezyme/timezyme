@@ -491,6 +491,8 @@
     "pricing": {
       "title": "Pricing",
       "description": "Choose the plan that works best for you",
+      "errorTitle": "Unable to load pricing",
+      "errorDescription": "Please try again later or contact support if the issue persists.",
       "onThisPlan": "You're on this plan",
       "downgrade": "Downgrade",
       "switchPlan": "Switch to this plan",

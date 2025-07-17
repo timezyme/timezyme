@@ -10,13 +10,12 @@ interface Props {
 const props = defineProps<Props>()
 
 const { t } = useI18n()
-const { getFreePlanUiConfig, getLifeTimeDealUiConfig, getMonthlyPlanUiConfig, getYearlyPlanUiConfig } = usePaymentPlans()
+const { getFreePlanUiConfig, getMonthlyPlanUiConfig, getYearlyPlanUiConfig } = usePaymentPlans()
 
 const isLoading = ref(false)
 
 const monthlySubscriptionProduct = computed(() => props.products.find(product => product.type === 'recurring' && product.recurringInterval === 'month'))
 const yearlySubscriptionProduct = computed(() => props.products.find(product => product.type === 'recurring' && product.recurringInterval === 'year'))
-const lifeTimeDeal = computed(() => props.products.find(plan => plan.type === 'one-time'))
 
 const isYearlyProductSubscribed = computed(() => props.activeSubscription?.productId === yearlySubscriptionProduct.value?.id)
 const isMonthlyProductSubscribed = computed(() => props.activeSubscription?.productId === monthlySubscriptionProduct.value?.id)
@@ -54,19 +53,6 @@ const plans = computed(() => {
           }),
         }),
       ]
-
-  if (lifeTimeDeal.value) {
-    const price = lifeTimeDeal.value.price / 100
-    const featureCount = 5
-    const buttonConfig: ButtonProps = {
-      ...baseButtonProps,
-      external: true,
-      to: `/api/payment/checkout?products=${lifeTimeDeal.value.id}`,
-      ...(props.hasLifeTimeDeal && { disabled: true, icon: 'i-lucide-check', label: t('pages.pricing.onThisPlan') }),
-    }
-    const config = getLifeTimeDealUiConfig(price, featureCount, buttonConfig, !hasProPlan.value)
-    _plans.push(config)
-  }
 
   if (monthlySubscriptionProduct.value && activeBillingCycle.value === '0' && !props.hasLifeTimeDeal) {
     const price = monthlySubscriptionProduct.value.price / 100

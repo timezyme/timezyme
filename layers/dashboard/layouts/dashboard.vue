@@ -4,7 +4,7 @@ import type { NavigationMenuItem } from '@nuxt/ui'
 const { user } = useUserSession()
 const { t } = useI18n()
 
-const { data } = useFetch<{ activeSubscription: null | SelectSubscription, lifeTimeDeal: null | SelectUserLifeTimeDeals, products: Array<PaymentProduct> }>('/api/payment/status')
+const { data } = useFetch<{ activeSubscription: null | SelectSubscription, products: Array<PaymentProduct> }>('/api/payment/status')
 
 const items = computed(() => {
   const _items: Array<NavigationMenuItem> = [

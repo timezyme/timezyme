@@ -11,41 +11,15 @@ export default defineEventHandler(async (event) => {
       serverLogger.info(`${LOGGER_PREFIX} type: ${payload.type}`)
 
       try {
-        const { data: { amount, createdAt, customerExternalId, customerId, id: checkoutId, product: { id: productId, recurringInterval }, status } } = payload
+        const { data: { product: { recurringInterval } } } = payload
 
         if (recurringInterval) {
-          serverLogger.info(`${LOGGER_PREFIX} Checkout of product with recurring interval -> skipping`)
+          serverLogger.info(`${LOGGER_PREFIX} Checkout of product with recurring interval -> handled by onCustomerStateChanged`)
           return
         }
 
-        if (status !== 'succeeded') {
-          serverLogger.info(`${LOGGER_PREFIX} Checkout not succeeded yet (current status "${status}") -> skipping`)
-          return
-        }
-
-        if (!customerExternalId) {
-          serverLogger.info(`${LOGGER_PREFIX} Missing customer external ID -> skipping`)
-          return
-        }
-
-        const { createLifeTimeDeal, getLifeTimeDealByUserId } = useLifeTimeDealsDb()
-        const existingLifeTimeDeal = await getLifeTimeDealByUserId(customerExternalId)
-
-        if (existingLifeTimeDeal) {
-          serverLogger.info(`${LOGGER_PREFIX} life time deal already exists for external user ID ${customerExternalId} -> skipping`)
-          return
-        }
-
-        const lifeTimeDeal = {
-          amount: amount ?? 0,
-          checkoutId,
-          customerId: customerId ?? '[missing]',
-          productId,
-          purchasedAt: createdAt,
-          userId: customerExternalId,
-        }
-        serverLogger.info(`${LOGGER_PREFIX} Create life time deal for external user ID ${customerExternalId}`, lifeTimeDeal)
-        await createLifeTimeDeal(lifeTimeDeal)
+        // Skip one-time purchases as we no longer offer lifetime deals
+        serverLogger.info(`${LOGGER_PREFIX} One-time purchase detected -> skipping (lifetime deals no longer offered)`)
       }
       catch (error: any) {
         serverLogger.error(`${LOGGER_PREFIX} Failed to process checkout update`, error)
@@ -95,7 +69,7 @@ export default defineEventHandler(async (event) => {
           endsAt: activeSubscription.endsAt,
           id,
           name: product.name,
-          priceId: activeSubscription.priceId ?? '[missing]',
+          priceId: (activeSubscription as any).priceId ?? '[missing]',
           productId: activeSubscription.productId ?? '[missing]',
           recurringInterval: activeSubscription.recurringInterval ?? '[missing]',
           startedAt: activeSubscription.startedAt,

@@ -4,8 +4,8 @@ import type { ButtonProps } from '@nuxt/ui'
 const { t } = useI18n()
 const { loggedIn } = useUserSession()
 
-const { data: allProductsData } = useFetch('/api/payment/products')
-const { getFreePlanUiConfig, getLifeTimeDealUiConfig, getMonthlyPlanUiConfig, getYearlyPlanUiConfig } = usePaymentPlans()
+const { data: allProductsData, error: productsError } = useFetch('/api/payment/products')
+const { getFreePlanUiConfig, getMonthlyPlanUiConfig, getYearlyPlanUiConfig } = usePaymentPlans()
 
 const activeBillingCycle = ref('0')
 const billingCycleTabItems = [{ label: t('pages.pricing.billingCycle.monthly') }, { label: t('pages.pricing.billingCycle.yearly') }]
@@ -22,7 +22,6 @@ async function onButtonClick () {
 const plans = computed(() => {
   const monthlyPlan = allProductsData.value?.find(plan => plan.recurringInterval === 'month')
   const yearlyPlan = allProductsData.value?.find(plan => plan.recurringInterval === 'year')
-  const lifeTimeDeal = allProductsData.value?.find(plan => plan.type === 'one-time')
 
   const baseButtonProps: ButtonProps = {
     block: false,
@@ -33,10 +32,6 @@ const plans = computed(() => {
   }
 
   const _plans = [getFreePlanUiConfig(0, 5, { ...baseButtonProps, variant: 'soft' })]
-
-  if (lifeTimeDeal) {
-    _plans.push(getLifeTimeDealUiConfig(lifeTimeDeal.price / 100, 5, baseButtonProps, true))
-  }
 
   if (monthlyPlan && activeBillingCycle.value === '0') {
     _plans.push(getMonthlyPlanUiConfig(monthlyPlan.price / 100, 5, { ...baseButtonProps, variant: 'soft' }))
@@ -51,20 +46,33 @@ const plans = computed(() => {
 </script>
 
 <template>
-  <div class="flex justify-center w-full">
-    <UTabs
-      v-model="activeBillingCycle"
-      :items="billingCycleTabItems"
-      color="neutral"
-      class="w-72"
-      :ui="{ list: 'rounded-full', indicator: 'rounded-full' }"
+  <div
+    v-if="productsError"
+    class="text-center py-8"
+  >
+    <UAlert
+      color="warning"
+      variant="subtle"
+      :title="t('pages.pricing.errorTitle', 'Unable to load pricing')"
+      :description="t('pages.pricing.errorDescription', 'Please try again later or contact support if the issue persists.')"
     />
   </div>
-  <UPricingPlans compact>
-    <UPricingPlan
-      v-for="(plan, index) of plans"
-      :key="index"
-      v-bind="plan"
-    />
-  </UPricingPlans>
+  <div v-else>
+    <div class="flex justify-center w-full">
+      <UTabs
+        v-model="activeBillingCycle"
+        :items="billingCycleTabItems"
+        color="neutral"
+        class="w-72"
+        :ui="{ list: 'rounded-full', indicator: 'rounded-full' }"
+      />
+    </div>
+    <UPricingPlans compact>
+      <UPricingPlan
+        v-for="(plan, index) of plans"
+        :key="index"
+        v-bind="plan"
+      />
+    </UPricingPlans>
+  </div>
 </template>

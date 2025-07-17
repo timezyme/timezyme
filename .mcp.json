@@ -34,6 +34,23 @@
     "mastra": {
       "command": "npx",
       "args": ["-y", "@mastra/mcp-docs-server"]
+    },
+    "Polar": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "--package",
+        "@polar-sh/sdk",
+        "--",
+        "mcp",
+        "start",
+        "--access-token",
+        "..."
+      ]
+    },
+    "Context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
     }
   }
 }

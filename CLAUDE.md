@@ -75,6 +75,31 @@ Required environment variables are validated in `validate-env.ts`. Key variables
 - Security: `NUXT_SESSION_PASSWORD` (32+ characters)
 - General: `NUXT_PUBLIC_BASE_URL`
 
+### Polar Payment Configuration
+**Important**: Polar has separate sandbox and production environments.
+
+#### Local Development (.env file)
+Always use Polar **sandbox** credentials for local development:
+```bash
+NUXT_PRIVATE_POLAR_ACCESS_TOKEN=<sandbox_token>
+NUXT_PRIVATE_POLAR_WEBHOOK_SECRET=<sandbox_webhook_secret>
+NUXT_PRIVATE_POLAR_ORGANIZATION_ID=<sandbox_org_id>
+NUXT_PRIVATE_POLAR_SERVER=sandbox
+```
+
+#### Production (NuxtHub Dashboard)
+Set Polar **production** credentials in NuxtHub environment variables:
+- Go to [NuxtHub dashboard](https://admin.hub.nuxt.com)
+- Navigate to Settings → Environment Variables
+- Set production values with `NUXT_PRIVATE_POLAR_SERVER=production`
+
+**Available Pricing Plans**:
+- `free` - Free tier (one-time, $0)
+- `proMonthly` - Pro Monthly subscription ($20/month)
+- `proYearly` - Pro Yearly subscription ($200/year)
+
+**Note**: Lifetime deals have been removed from the codebase.
+
 ### Database Operations
 - Schema definitions in `app/layers/db/server/database/schema/`
 - Use server utilities in `app/layers/db/server/utils/` for database operations
@@ -157,6 +182,25 @@ tail -f dev.log  # If using dev-start.sh
 # Admin: demo-admin@nuxtstarterkit.com / demoAdminNuxtStarterKit0815#
 # User:  demo-user@nuxtstarterkit.com / demoUserNuxtStarterKit
 ```
+
+## Troubleshooting
+
+### Polar API Authentication Errors
+If you see "401 invalid_token" errors:
+1. Verify you're using the correct environment (sandbox vs production)
+2. Check that the @polar-sh/nuxt module is configured in the payment layer's nuxt.config.ts
+3. Ensure your Polar products exist in the environment you're using
+4. For local development, always use sandbox credentials
+
+### Port Conflicts
+If the dev server tries to use port 3000 instead of 9009:
+- Kill existing processes: `pkill -f "nuxt dev"`
+- Use the helper script: `./scripts/dev-start.sh`
+
+### Database Write Errors
+If you see "attempt to write a readonly database":
+- Clear the database cache: `rm -rf .data/hub/cache.db*`
+- Restart the dev server
 
 ## Development Cleanup Guidelines
 When testing features or running development tasks, always clean up afterwards:
