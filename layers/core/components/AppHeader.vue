@@ -79,6 +79,8 @@ const items = computed(() => links.value.map(({ icon, ...link }) => link))
           </UButton>
           <UButton
             to="/auth/register"
+            color="primary"
+            variant="solid"
             class="hidden lg:flex"
           >
             {{ $t('general.register') }}
@@ -113,7 +115,11 @@ const items = computed(() => links.value.map(({ icon, ...link }) => link))
             >
               {{ $t('general.login') }}
             </UButton>
-            <UButton to="/auth/register">
+            <UButton
+              to="/auth/register"
+              color="primary"
+              variant="solid"
+            >
               {{ $t('general.register') }}
             </UButton>
           </template>

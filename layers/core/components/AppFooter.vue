@@ -3,41 +3,47 @@ import { siteConfig } from '~~/config/siteConfig'
 
 const quickLinks = [
   {
-    label: 'Dashboard',
-    to: '/dashboard',
+    label: 'Blog',
+    to: '/blog',
   },
   {
-    label: 'Login',
-    to: '/auth/login',
+    label: 'Help Center',
+    to: '/help',
   },
   {
-    badge: 'New',
-    label: 'Feedback',
-    to: '/contact',
+    label: 'Playbook',
+    to: '/playbook',
   },
 ]
 
 const companyLinks = [
   {
-    label: 'About',
+    label: 'About us',
     to: '/about',
   },
   {
-    badge: 'Hiring',
-    label: 'Career',
-    to: '/career',
+    label: 'Careers',
+    to: '/careers',
   },
   {
-    label: 'Discover Zymes',
-    to: '/features',
+    label: 'Terms of service',
+    to: '/terms',
   },
   {
-    label: 'Contact',
+    label: 'Privacy policy',
+    to: '/privacy',
+  },
+  {
+    label: 'Manage Cookies',
+    to: '/cookies',
+  },
+  {
+    label: 'Media inquiries',
+    to: '/media',
+  },
+  {
+    label: 'Contact us',
     to: '/contact',
-  },
-  {
-    label: 'Support',
-    to: '/support',
   },
 ]
 
@@ -68,7 +74,6 @@ const socialLinks = [
         <div class="space-y-4">
           <div class="flex items-center gap-3">
             <Logo class="h-8" />
-            <span class="text-2xl font-bold text-white">{{ siteConfig.name }}</span>
           </div>
           <p class="text-gray-400 text-sm max-w-xs">
             {{ siteConfig.description }}
@@ -88,10 +93,10 @@ const socialLinks = [
           </div>
         </div>
 
-        <!-- Middle Section - Quick Links -->
+        <!-- Middle Section - Resources -->
         <div>
           <h3 class="font-semibold text-white mb-4">
-            Quick Links
+            Resources
           </h3>
           <ul class="space-y-3">
             <li

@@ -25,7 +25,7 @@ defineOgImageComponent('OgImageTemplate')
             color="primary"
             variant="solid"
             size="lg"
-            class="rounded-full font-semibold bg-gradient-to-r from-purple-600 to-purple-500"
+            class="rounded-full font-semibold bg-gradient-to-r from-cyan-600 to-cyan-500"
           >
             <template #leading>
               <span class="text-yellow-300">✨</span>
@@ -47,11 +47,15 @@ defineOgImageComponent('OgImageTemplate')
         <!-- Get Early Access Section -->
         <div class="pt-12 space-y-6">
           <div class="space-y-2">
-            <div class="flex items-center justify-center gap-2 text-purple-400">
+            <div class="flex items-center justify-center gap-2 text-cyan-400">
               <i class="i-lucide-key text-2xl" />
-              <h3 class="text-3xl font-bold text-white">{{ t('pages.home.waitlistSection.title') }}</h3>
+              <h3 class="text-3xl font-bold text-white">
+                {{ t('pages.home.waitlistSection.title') }}
+              </h3>
             </div>
-            <p class="text-gray-400">{{ t('pages.home.waitlistSection.description') }}</p>
+            <p class="text-gray-400">
+              {{ t('pages.home.waitlistSection.description') }}
+            </p>
           </div>
           <div class="flex justify-center">
             <WaitlistForm />
@@ -59,6 +63,5 @@ defineOgImageComponent('OgImageTemplate')
         </div>
       </div>
     </section>
-
   </div>
 </template>

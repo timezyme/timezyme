@@ -95,7 +95,7 @@
     },
     "waitlistForm": {
       "help": "We won't share your email.",
-      "subscribeButton": "Subscribe",
+      "subscribeButton": "Join waitlist",
       "toast": {
         "subscribe": {
           "success": {
@@ -445,7 +445,7 @@
       },
       "waitlistSection": {
         "title": "Get early access",
-        "description": "Get early access to our product"
+        "description": "Get early access to TimeZyme"
       },
       "cta": {
         "title": "Start with your SaaS idea today",
