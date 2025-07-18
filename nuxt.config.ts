@@ -123,6 +123,7 @@ export default defineNuxtConfig({
       openAPI: true,
     },
     rollupConfig: {
+      // @ts-expect-error - Rollup plugin type mismatch between versions
       plugins: [vue()], // see https://vuemail.net/getting-started/nuxt-nitro
     },
   },
@@ -224,8 +225,6 @@ export default defineNuxtConfig({
   },
 
   sitemap: { exclude: ['/admin/**'] },
-
-  ssr: true,
 
   umami: {
     domains: [siteConfig.domain],

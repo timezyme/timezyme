@@ -30,7 +30,13 @@ If ANY tests fail, you MUST fix the issues before considering the task complete.
 
 ## Project Overview
 
-This is a Nuxt 3 Starter Kit for building SaaS applications. It uses a layered architecture with modular features that can be enabled/disabled as needed.
+This is a Nuxt 4 Starter Kit for building SaaS applications. It uses a layered architecture with modular features that can be enabled/disabled as needed.
+
+### Nuxt 4 Upgrade Notes
+- Successfully upgraded from Nuxt 3 to Nuxt 4
+- Using `compatibilityVersion: 4` in nuxt.config.ts for Nuxt 4 directory structure
+- All layers and modules are compatible with Nuxt 4
+- TypeScript support has been enhanced with proper type definitions
 
 ## Essential Commands
 
@@ -92,7 +98,8 @@ The application uses Nuxt layers for modular functionality. Each layer is in `ap
 - **waitlist**: Early access signup system
 
 ### Key Technologies
-- **Frontend**: Vue 3, Nuxt UI Pro, UnoCSS/Tailwind
+- **Framework**: Nuxt 4 with Vue 3
+- **Frontend**: Nuxt UI Pro, UnoCSS/Tailwind
 - **Backend**: Nitro server, H3 utilities
 - **Database**: SQLite with Drizzle ORM (via NuxtHub)
 - **Authentication**: nuxt-auth-utils with session management

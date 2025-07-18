@@ -1,12 +1,16 @@
-# Nuxt Starter Kit - Complete Setup Guide
+# Nuxt 4 Starter Kit - Complete Setup Guide
 
-This guide will help you set up the Nuxt Starter Kit for local development.
+This guide will help you set up the Nuxt 4 Starter Kit for local development.
 
 ## Prerequisites
 
 - Node.js v22+
 - pnpm package manager
 - Git
+
+## Framework Version
+
+This starter kit is built with **Nuxt 4**, providing the latest features and performance improvements.
 
 ## Initial Setup
 
