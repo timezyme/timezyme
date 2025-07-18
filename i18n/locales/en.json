@@ -1,7 +1,7 @@
 {
   "general": {
-    "name": "Demo SaaS",
-    "description": "This is a demo application built with the \"Nuxt Starter Kit\".",
+    "name": "TimeZyme",
+    "description": "TimeZyme transforms any document into interactive visual stories.",
     "login": "Log In",
     "register": "Get started",
     "dashboard": "Dashboard",
@@ -30,7 +30,7 @@
       }
     },
     "footer": {
-      "copyright": "Demo SaaS © {year}"
+      "copyright": "TimeZyme © {year} All rights reserved"
     },
     "banner": {
       "impersonation": {

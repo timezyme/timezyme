@@ -1,149 +1,163 @@
 <script setup lang="ts">
-import { de, en } from '@nuxt/ui/locale'
 import { siteConfig } from '~~/config/siteConfig'
 
-const { locale, setLocale, t } = useI18n()
-const localePath = useLocalePath()
-
-const footerColumns = [{
-  children: [{
-    label: 'Nuxters',
-    target: '_blank',
-    to: 'https://nuxters.nuxt.com',
-  }, {
-    label: 'Video Courses',
-    target: '_blank',
-    to: 'https://masteringnuxt.com/nuxt3?ref=nuxt',
-  }, {
-    label: 'Nuxt on GitHub',
-    target: '_blank',
-    to: 'https://github.com/nuxt',
-  }],
-  label: 'Community',
-}, {
-  children: [{
-    label: 'Nuxt Content',
-    target: '_blank',
-    to: 'https://content.nuxt.com/',
-  }, {
-    label: 'Nuxt DevTools',
-    target: '_blank',
-    to: 'https://devtools.nuxt.com/',
-  }, {
-    label: 'Nuxt Image',
-    target: '_blank',
-    to: 'https://image.nuxt.com/',
-  }, {
-    label: 'Nuxt UI',
-    target: '_blank',
-    to: 'https://ui.nuxt.com/',
-  }],
-  label: 'Solutions',
-}]
-
-const items = [
+const quickLinks = [
   {
-    label: t('general.links.legal.terms'),
-    slot: 'localeLink',
-    target: '_blank',
-    to: localePath('legal-terms'),
+    label: 'Dashboard',
+    to: '/dashboard',
   },
   {
-    label: t('general.links.legal.privacy'),
-    slot: 'localeLink',
-    target: '_blank',
-    to: localePath('legal-privacy'),
+    label: 'Login',
+    to: '/auth/login',
+  },
+  {
+    badge: 'New',
+    label: 'Feedback',
+    to: '/contact',
   },
 ]
 
-async function onUpdateLocale (newLocale: string | undefined) {
-  if (newLocale && (newLocale === 'de' || newLocale === 'en')) {
-    await setLocale(newLocale)
-  }
-}
+const companyLinks = [
+  {
+    label: 'About',
+    to: '/about',
+  },
+  {
+    badge: 'Hiring',
+    label: 'Career',
+    to: '/career',
+  },
+  {
+    label: 'Discover Zymes',
+    to: '/features',
+  },
+  {
+    label: 'Contact',
+    to: '/contact',
+  },
+  {
+    label: 'Support',
+    to: '/support',
+  },
+]
+
+const socialLinks = [
+  {
+    icon: 'i-simple-icons-discord',
+    label: 'Discord',
+    to: siteConfig.socialMedia.discord?.url || '#',
+  },
+  {
+    icon: 'i-simple-icons-x',
+    label: 'X (Twitter)',
+    to: siteConfig.socialMedia.x.url,
+  },
+  {
+    icon: 'i-lucide-link',
+    label: 'Website',
+    to: siteConfig.url,
+  },
+]
 </script>
 
 <template>
-  <USeparator
-    class="h-px"
-  >
-    <Logo class="h-14 w-full object-contain" />
-  </USeparator>
+  <footer class="bg-zinc-900 border-t border-zinc-800 mt-20">
+    <UContainer>
+      <div class="py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Left Section - Logo and Social -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <Logo class="h-8" />
+            <span class="text-2xl font-bold text-white">{{ siteConfig.name }}</span>
+          </div>
+          <p class="text-gray-400 text-sm max-w-xs">
+            {{ siteConfig.description }}
+          </p>
+          <div class="flex gap-3 pt-2">
+            <UButton
+              v-for="social in socialLinks"
+              :key="social.label"
+              :icon="social.icon"
+              :to="social.to"
+              :aria-label="social.label"
+              target="_blank"
+              color="neutral"
+              variant="ghost"
+              size="sm"
+            />
+          </div>
+        </div>
 
-  <UFooter :ui="{ top: 'border-b border-(--ui-border)' }">
-    <template #top>
-      <UContainer>
-        <UFooterColumns :columns="footerColumns">
-          <template #right>
-            <div class="flex flex-col items-center gap-2">
-              <span class="text-gray-400">{{ $t('pages.home.waitlistSection.description') }}</span>
-              <WaitlistForm />
-            </div>
-          </template>
-        </UFooterColumns>
-      </UContainer>
-    </template>
+        <!-- Middle Section - Quick Links -->
+        <div>
+          <h3 class="font-semibold text-white mb-4">
+            Quick Links
+          </h3>
+          <ul class="space-y-3">
+            <li
+              v-for="link in quickLinks"
+              :key="link.label"
+            >
+              <ULink
+                :to="link.to"
+                class="text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-2"
+              >
+                {{ link.label }}
+                <span
+                  v-if="link.badge === 'New'"
+                  class="badge-new"
+                >
+                  New
+                </span>
+              </ULink>
+            </li>
+          </ul>
+        </div>
 
-    <template #left>
-      <ULink
-        to="https://github.com/nuxt/ui"
-        target="_blank"
-        class="text-sm text-[var(--ui-text-muted)]"
-      >
-        {{ $t('general.footer.copyright', {
-          year: new Date().getFullYear(),
-        }) }}
-      </ULink>
-    </template>
+        <!-- Right Section - Company -->
+        <div>
+          <h3 class="font-semibold text-white mb-4">
+            Company
+          </h3>
+          <ul class="space-y-3">
+            <li
+              v-for="link in companyLinks"
+              :key="link.label"
+            >
+              <ULink
+                :to="link.to"
+                class="text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-2"
+              >
+                {{ link.label }}
+                <span
+                  v-if="link.badge === 'Hiring'"
+                  class="badge-hiring"
+                >
+                  Hiring
+                </span>
+              </ULink>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-    <UNavigationMenu
-      :items="items"
-      variant="link"
-    >
-      <template #localeLink="{ item }">
-        <ClientOnly>
-          <ULink
-            :to="item.to"
-            :target="item.target"
-          >
-            {{ item.label }}
-          </ULink>
-        </ClientOnly>
-      </template>
-    </UNavigationMenu>
-
-    <template #right>
-      <ULocaleSelect
-        :model-value="locale"
-        :locales="[de, en]"
-        @update:model-value="onUpdateLocale"
-      />
-      <UButton
-        :aria-label="siteConfig.socialMedia.x.ariaLabel"
-        icon="i-simple-icons-x"
-        :to="siteConfig.socialMedia.x.url"
-        target="_blank"
-        color="neutral"
-        variant="ghost"
-      />
-      <UButton
-        :aria-label="siteConfig.socialMedia.github.ariaLabel"
-        icon="i-simple-icons-github"
-        :to="siteConfig.socialMedia.github.url"
-        target="_blank"
-        color="neutral"
-        variant="ghost"
-      />
-      <span>
-        <span class="text-xs">Powered by</span>
-        <ULink
-          to="https://nuxtstarterkit.com"
-          target="_blank"
-          class="text-sm text-[var(--ui-text-muted)]"
-        >
-          Nuxt Starter Kit
-        </ULink>
-      </span>
-    </template>
-  </UFooter>
+      <!-- Bottom Section -->
+      <div class="py-6 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-sm text-gray-400">
+          {{ $t('general.footer.copyright', { year: new Date().getFullYear() }) }}
+        </p>
+        <div class="flex items-center gap-4">
+          <UColorModeButton size="sm" />
+          <UButton
+            icon="i-lucide-arrow-up"
+            color="neutral"
+            variant="ghost"
+            size="sm"
+            aria-label="Back to top"
+            @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+          />
+        </div>
+      </div>
+    </UContainer>
+  </footer>
 </template>

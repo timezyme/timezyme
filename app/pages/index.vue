@@ -1,32 +1,10 @@
 <script setup lang="ts">
-import type { ButtonProps } from '@nuxt/ui'
-
 const { t } = useI18n()
-const { data: testimonials } = useFetch<Array<Testimonial>>('/api/testimonials', { server: false })
 
-const heroLinks: Array<ButtonProps> = [
-  {
-    icon: 'i-lucide-arrow-right',
-    label: t('pages.home.hero.action1Label'),
-    size: 'xl',
-    to: '/dashboard',
-    trailing: true,
-  },
-]
-
-const ctaLinks = ref<Array<ButtonProps>>([
-  {
-    label: t('pages.home.cta.link1Label'),
-    to: '/dashboard',
-    trailingIcon: 'i-lucide-arrow-right',
-  },
-  {
-    color: 'neutral',
-    label: t('pages.home.cta.link2Label'),
-    to: '/docs',
-    variant: 'ghost',
-  },
-])
+function scrollToWaitlist () {
+  const waitlistSection = document.getElementById('waitlist')
+  waitlistSection?.scrollIntoView({ behavior: 'smooth' })
+}
 
 interface HeroSectionFeature {
   featureCount: number
@@ -75,31 +53,55 @@ defineOgImageComponent('OgImageTemplate')
 </script>
 
 <template>
-  <div>
-    <UPageHero
-      :title="t('general.name')"
-      :description="t('general.description')"
-      :links="heroLinks"
-    >
-      <div class="absolute inset-0 landing-grid z-[-1] [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]" />
-
-      <template #top>
-        <div class="absolute rounded-full dark:bg-(--ui-primary) blur-[300px] size-60 sm:size-80 transform -translate-x-1/2 left-1/2 -translate-y-80" />
-
+  <div class="relative overflow-hidden">
+    <!-- Hero Section -->
+    <section class="relative min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-20">
+      <!-- Background Effects -->
+      <div class="absolute inset-0 -z-10">
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] purple-glow opacity-50" />
         <LazyStarsBg />
-      </template>
+      </div>
 
-      <template #headline>
-        <UBadge
-          variant="subtle"
-          size="lg"
-          class="relative rounded-full font-semibold"
-        >
-          {{ $t('pages.home.hero.headline') }}
-        </UBadge>
-      </template>
-    </UPageHero>
+      <!-- Main Content -->
+      <div class="max-w-4xl mx-auto text-center space-y-8">
+        <div class="flex justify-center">
+          <UBadge
+            color="primary"
+            variant="solid"
+            size="lg"
+            class="rounded-full font-semibold bg-gradient-to-r from-purple-600 to-purple-500"
+          >
+            <template #leading>
+              <span class="text-yellow-300">✨</span>
+            </template>
+            Transform Reading into Understanding
+          </UBadge>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold text-white">
+          TimeZyme:
+        </h1>
+        <h2 class="text-4xl md:text-6xl font-bold">
+          <span class="text-white">Unlock knowledge at </span>
+          <span class="gradient-text">LightSpeed</span>
+        </h2>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+          TimeZyme transforms any document into interactive visual stories.
+        </p>
 
+        <!-- CTA Button -->
+        <div class="pt-8">
+          <button
+            class="gradient-btn text-white font-semibold px-8 py-4 rounded-lg text-lg hover:scale-105 transition-transform flex items-center gap-2 mx-auto"
+            @click="scrollToWaitlist"
+          >
+            <i class="i-lucide-sparkles" />
+            Join Waitlist
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature Sections -->
     <UPageSection
       v-for="feature of features"
       :key="feature.name"
@@ -112,19 +114,7 @@ defineOgImageComponent('OgImageTemplate')
       <nuxt-img :src="feature.imagePath" />
     </UPageSection>
 
-    <UPageLogos
-      title="Trusted by the best front-end teams"
-      marquee
-      :items="[
-        'i-simple-icons-github',
-        'i-simple-icons-discord',
-        'i-simple-icons-x',
-        'i-simple-icons-instagram',
-        'i-simple-icons-linkedin',
-        'i-simple-icons-facebook',
-      ]"
-    />
-
+    <!-- Pricing Section -->
     <UPageSection
       :title="t('pages.home.pricingSection.title')"
       :description="t('pages.home.pricingSection.description')"
@@ -138,6 +128,7 @@ defineOgImageComponent('OgImageTemplate')
       </ClientOnly>
     </UPageSection>
 
+    <!-- FAQ Section -->
     <UPageSection
       :title="t('pages.home.faqSection.title')"
       :description="t('pages.home.faqSection.description')"
@@ -146,20 +137,9 @@ defineOgImageComponent('OgImageTemplate')
       <FAQ />
     </UPageSection>
 
+    <!-- Waitlist Section -->
     <UPageSection
-      :title="t('pages.home.testimonialsSection.title')"
-      :description="t('pages.home.testimonialsSection.description')"
-      icon="i-lucide-speech"
-    >
-      <ClientOnly>
-        <Testimonials :testimonials="testimonials ?? []" />
-        <template #fallback>
-          <TestimonialsSkeletons />
-        </template>
-      </ClientOnly>
-    </UPageSection>
-
-    <UPageSection
+      id="waitlist"
       :title="t('pages.home.waitlistSection.title')"
       :description="t('pages.home.waitlistSection.description')"
       icon="i-lucide-key"
@@ -168,16 +148,5 @@ defineOgImageComponent('OgImageTemplate')
         <WaitlistForm />
       </template>
     </UPageSection>
-
-    <UPageCTA
-      :title="t('pages.home.cta.title')"
-      :description="t('pages.home.cta.description')"
-      :links="ctaLinks"
-      variant="naked"
-      class="overflow-hidden"
-    >
-      <div class="absolute rounded-full dark:bg-(--ui-primary) blur-[250px] size-40 sm:size-50 transform -translate-x-1/2 left-1/2 -translate-y-80" />
-      <LazyStarsBg />
-    </UPageCTA>
   </div>
 </template>

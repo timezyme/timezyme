@@ -1,18 +1,18 @@
 export const siteConfig = {
-  description: 'This is a demo application built with the Nuxt Starter Kit.',
-  domain: 'demo.nuxtstarterkit.com',
-  logoUrl: 'https://demo.nuxtstarterkit.com/images/logo.png',
-  logoWithTextUrl: 'https://demo.nuxtstarterkit.com/images/logo.png',
-  name: 'Demo SaaS',
+  description: 'TimeZyme transforms any document into interactive visual stories.',
+  domain: 'timezyme.com',
+  logoUrl: 'https://timezyme.com/images/logo/logo-light.png',
+  logoWithTextUrl: 'https://timezyme.com/images/logo/logo-light.png',
+  name: 'TimeZyme',
   socialMedia: {
-    github: {
-      ariaLabel: 'GitHub',
-      url: 'https://github.com/NuxtStarterKit/nuxtstarterkit',
+    discord: {
+      ariaLabel: 'Discord',
+      url: 'https://discord.gg/timezyme',
     },
     x: {
       ariaLabel: 'X',
-      url: 'https://x.com/mokkapps',
+      url: 'https://x.com/timezyme',
     },
   },
-  url: 'https://demo.nuxtstarterkit.com',
+  url: 'https://timezyme.com',
 }

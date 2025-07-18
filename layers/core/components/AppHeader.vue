@@ -22,24 +22,9 @@ const links = computed(() => ([
     to: '/faq',
   },
   {
-    icon: 'i-lucide-speech',
-    label: t('general.links.testimonials'),
-    to: '/testimonials',
-  },
-  {
     icon: 'i-lucide-credit-card',
     label: t('general.links.pricing'),
     to: '/pricing',
-  },
-  {
-    icon: 'i-lucide-newspaper',
-    label: t('general.links.blog'),
-    to: '/blog',
-  },
-  {
-    icon: 'i-lucide-clock-fading',
-    label: t('general.links.changelog'),
-    to: '/changelog',
   },
   {
     icon: 'i-lucide-mail',
@@ -55,7 +40,7 @@ const items = computed(() => links.value.map(({ icon, ...link }) => link))
     <template #title>
       <!-- If you use an svg as Logo, you can remove the ClientOnly wrapper -->
       <ClientOnly>
-        <AppLogo />
+        <AppLogo :show-app-name="false" />
         <template #fallback>
           <span>{{ $t('general.name') }}</span>
         </template>

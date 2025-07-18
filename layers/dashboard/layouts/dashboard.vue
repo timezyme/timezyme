@@ -63,7 +63,7 @@ const items = computed(() => {
       <template #header="{ collapsed }">
         <div class="flex items-center justify-between w-full">
           <AppLogo
-            :show-app-name="!collapsed"
+            :show-app-name="false"
             link-text-class="text-sm"
           />
           <UBadge

@@ -12,3 +12,57 @@
 @source "../../../layers/payment/";
 @source "../../../layers/testimonials/";
 @source "../../../layers/waitlist/";
+
+/* TimeZyme Theme Customizations */
+:root {
+  --timezyme-gradient: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  --timezyme-bg-dark: #0a0a0f;
+  --timezyme-surface-dark: #1a1a2e;
+}
+
+.dark {
+  background-color: var(--timezyme-bg-dark);
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: var(--timezyme-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Gradient button */
+.gradient-btn {
+  background: var(--timezyme-gradient);
+  transition: all 0.3s ease;
+}
+
+.gradient-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+}
+
+/* Purple glow effect */
+.purple-glow {
+  background: radial-gradient(circle at center, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+}
+
+/* Badge styles */
+.badge-new {
+  background: #10b981;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-hiring {
+  background: #3b82f6;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}

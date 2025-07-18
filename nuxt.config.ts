@@ -10,6 +10,11 @@ const REDIRECT_INTRUDERS_GIF = 'https://i.imgur.com/1Ia9tTG.gif'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 
+  colorMode: {
+    fallback: 'dark',
+    preference: 'dark',
+  },
+
   compatibilityDate: '2025-03-12',
 
   css: ['~/assets/css/main.css'],
