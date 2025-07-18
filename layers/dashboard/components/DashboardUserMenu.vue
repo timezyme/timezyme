@@ -130,7 +130,7 @@ const items = computed<Array<Array<DropdownMenuItem>>>(() => ([[{
     <template #chip-leading="{ item }">
       <span
         class="ms-0.5 size-2 rounded-full bg-(--chip)"
-        :style="{ '--chip': `var(--color-${item.label}-400)` }"
+        :style="{ '--chip': `var(--color-${(item as any).label}-400)` }"
       />
     </template>
   </UDropdownMenu>

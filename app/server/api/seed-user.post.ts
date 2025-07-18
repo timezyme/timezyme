@@ -1,4 +1,5 @@
 import { eq } from 'drizzle-orm'
+import { nanoid } from 'nanoid'
 
 export default defineEventHandler(async (event) => {
   // Only allow in development
@@ -12,7 +13,7 @@ export default defineEventHandler(async (event) => {
   const { email, hashedPassword, name, role } = await readBody(event)
 
   try {
-    const db = await hubDatabase()
+    const db = useDB()
 
     // Check if user exists
     const existingUser = await db
@@ -31,37 +32,32 @@ export default defineEventHandler(async (event) => {
         })
         .where(eq(tables.users.email, email))
 
-      // Update password
-      await db.update(tables.passwords)
+      // Update password in users table
+      await db.update(tables.users)
         .set({
           hashedPassword,
           updatedAt: new Date(),
         })
-        .where(eq(tables.passwords.userId, existingUser[0].id))
+        .where(eq(tables.users.id, existingUser[0]!.id))
 
       return { email, updated: true }
     }
     else {
       // Create new user
-      const userId = generateId('usr')
+      const userId = nanoid()
 
       await db.insert(tables.users)
         .values({
           createdAt: new Date(),
           email,
+          hashedPassword,
           id: userId,
           name,
           role,
           updatedAt: new Date(),
         })
 
-      await db.insert(tables.passwords)
-        .values({
-          createdAt: new Date(),
-          hashedPassword,
-          updatedAt: new Date(),
-          userId,
-        })
+      // Password is stored in users table, no separate insert needed
 
       return { created: true, email }
     }

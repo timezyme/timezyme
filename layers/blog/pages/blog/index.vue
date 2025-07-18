@@ -33,7 +33,7 @@ defineOgImageComponent('OgImageTemplate')
         :image="post.image"
         :date="post.date"
         :badge="post.category"
-        :authors="post.authors"
+        :authors="(post.authors as any)"
         :ui="{
           description: 'line-clamp-2',
         }"

@@ -94,12 +94,12 @@ watch(open, (newOpenModal) => {
 
 watch(() => props.testimonial, (newTestimonial) => {
   if (newTestimonial) {
-    state.authorDescription = newTestimonial.author.description
+    state.authorDescription = newTestimonial.author.description || ''
     state.authorName = newTestimonial.author.name
-    state.authorAvatarPath = newTestimonial.author.avatar.src
+    state.authorAvatarPath = newTestimonial.author.avatar?.src
     state.quote = newTestimonial.quote
-    state.sourceName = newTestimonial.source.name
-    state.sourceUrl = newTestimonial.source.url
+    state.sourceName = newTestimonial.source?.name || ''
+    state.sourceUrl = newTestimonial.source?.url
   }
 }, { immediate: true })
 </script>

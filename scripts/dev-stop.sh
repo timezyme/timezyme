@@ -41,3 +41,17 @@ if [ -f dev.log ] && [ ! -s dev.log ]; then
   rm dev.log
   echo "🧹 Cleaned up empty log file"
 fi
+
+# Kill any orphaned workerd processes
+WORKERD_COUNT=$(ps aux | grep workerd | grep -v grep | wc -l | tr -d ' ')
+if [ "$WORKERD_COUNT" -gt 0 ]; then
+  echo "🔧 Found $WORKERD_COUNT workerd process(es), cleaning up..."
+  pkill -f workerd
+  sleep 1
+  # Force kill if any remain
+  if ps aux | grep workerd | grep -v grep > /dev/null 2>&1; then
+    pkill -9 -f workerd
+    echo "⚠️  Force killed remaining workerd processes"
+  fi
+  echo "✅ Cleaned up workerd processes"
+fi

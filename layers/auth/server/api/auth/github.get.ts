@@ -14,10 +14,10 @@ export default defineOAuthGitHubEventHandler({
 
     const oauthUser: OAuthUser = {
       avatarUrl: user.avatar_url,
-      email: user.email,
+      email: user.email || '',
       name: user.name,
       providerId: 'github',
-      providerUserId: user.id,
+      providerUserId: user.id.toString(),
     }
     const dbUser = await handleOAuthLogin(oauthUser)
     if (dbUser.banned) {

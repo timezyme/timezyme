@@ -56,8 +56,8 @@ const items = [
   },
 ]
 
-async function onUpdateLocale (newLocale?: 'de' | 'en') {
-  if (newLocale) {
+async function onUpdateLocale (newLocale: string | undefined) {
+  if (newLocale && (newLocale === 'de' || newLocale === 'en')) {
     await setLocale(newLocale)
   }
 }

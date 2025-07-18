@@ -38,7 +38,7 @@ const state = reactive<Partial<BannerSchema & BannerNestedSchema>>({
   to: undefined,
 })
 
-async function onSubmit (event: FormSubmitEvent<BannerSchema & BannerNestedSchema>) {
+async function onSubmit (event: FormSubmitEvent<BannerSchema>) {
   const showUntilDateTimeDate = state.showUntilDateTime ? new Date(state.showUntilDateTime) : undefined
   const ttl = showUntilDateTimeDate ? differenceInSeconds(showUntilDateTimeDate, new Date()) : undefined
 

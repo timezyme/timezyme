@@ -1,4 +1,4 @@
-import consola from 'consola'
+import { consola } from 'consola'
 
 interface ServerLogger {
   debug: (message: string, ...args: Array<any>) => void

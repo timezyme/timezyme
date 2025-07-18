@@ -93,7 +93,7 @@ const columns: Array<TableColumn<Testimonial>> = [
         avatar: {
           alt: row.original.author.name,
           size: 'sm',
-          src: `/images/${row.original.author.avatar.src}`,
+          src: row.original.author.avatar?.src ? `/images/${row.original.author.avatar.src}` : undefined,
         },
         description: row.original.author.description,
         name: row.original.author.name,

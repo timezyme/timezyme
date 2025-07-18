@@ -123,7 +123,6 @@ export default defineNuxtConfig({
       openAPI: true,
     },
     rollupConfig: {
-      // @ts-expect-error TS2589: Type instantiation is excessively deep and possibly infinite.
       plugins: [vue()], // see https://vuemail.net/getting-started/nuxt-nitro
     },
   },

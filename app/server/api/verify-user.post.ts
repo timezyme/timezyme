@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const { email } = await readBody(event)
-  const db = await hubDatabase()
+  const db = useDB()
 
   await db.update(tables.users)
     .set({

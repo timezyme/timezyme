@@ -56,25 +56,25 @@ defineOgImageComponent('OgImageTemplate')
       <div class="flex flex-wrap items-center gap-3 mt-4">
         <div class="mt-4 flex flex-wrap items-center gap-6">
           <UButton
-            v-for="author in post!.authors"
-            :key="author.username"
-            :to="author.to"
+            v-for="author in (post!.authors || [])"
+            :key="(author as any).username"
+            :to="(author as any).to"
             target="_blank"
             color="neutral"
             variant="ghost"
             class="-my-1.5 -mx-2.5"
           >
             <UAvatar
-              :src="author.avatar?.src"
-              :alt="author.name"
+              :src="(author as any).avatar?.src"
+              :alt="(author as any).name"
             />
 
             <div class="text-left">
               <p class="font-medium">
-                {{ author.name }}
+                {{ (author as any).name }}
               </p>
               <p class="text-gray-500 dark:text-gray-400 leading-4">
-                {{ `@${author.username}` }}
+                {{ `@${(author as any).username}` }}
               </p>
             </div>
           </UButton>
