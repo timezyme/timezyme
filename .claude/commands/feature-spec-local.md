@@ -24,6 +24,9 @@ First, deeply analyze the existing codebase to understand the context for this n
 Next, research external best practices to ensure a high-quality implementation.
 
 - Search the web, official documentation for our libraries, and open-source repositories for proven design patterns related to this feature.
+- **Use Context7 MCP server** to fetch up-to-date documentation for any libraries/frameworks being used (Nuxt, Vue, Nuxt UI, etc.)
+- **Use Cloudflare MCP server** for deployment and edge computing best practices if relevant
+- **Use Mastra MCP server** for AI/ML integration patterns if the feature involves AI capabilities
 - Enumerate at least two alternative implementation approaches.
 - Evaluate the trade-offs for each approach (e.g., developer experience, performance, cost, security risks) and recommend the best path forward.
 - Surface any non-obvious security, privacy, or accessibility pitfalls discovered during your research.
@@ -72,8 +75,10 @@ Now, produce a comprehensive feature specification in a Markdown document. Use t
 - **Performance / Load Tests:**
 - **Development Server Testing:** (Include specific test scenarios with test credentials)
 - **Browser Testing with Playwright:** (Provide test scripts for critical user flows)
+  - **Use Playwright MCP server** for automated browser testing
   - **Test Credentials:** test@test.com / 12345678
 - **Test Script Location:** All test scripts MUST be placed in the `/scripts` directory, never in the project root
+- **Screenshot Documentation:** Use Snap-Happy MCP server to capture visual states during testing
 
 ### 📋 Implementation Plan
 
@@ -134,7 +139,15 @@ Finally, present the draft for approval, save it to a local file (under /plannin
     - Run `pnpm lint` and fix all issues before completing
     - All test scripts MUST be created in the `/scripts` directory, not in the project root
 
-6.  **Cleanup**: After testing is complete:
+6.  **Complex Problem Analysis**: If facing difficult implementation challenges:
+    - Use Sequential Thinking MCP server to break down complex problems
+    - Document the thinking process for future reference
+
+7.  **Payment Integration**: If the feature involves payment functionality:
+    - Use Polar MCP server to manage products, subscriptions, and customer data
+    - Ensure proper sandbox/production environment separation
+
+8.  **Cleanup**: After testing is complete:
     - Kill any background development servers:
       - `pkill -f "pnpm dev"` - Kill pnpm dev processes
       - `pkill -f "nuxt dev"` - Kill nuxt dev processes

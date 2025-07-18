@@ -2,6 +2,32 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 🚨 CRITICAL: Test Requirements for All Tasks
+
+**MANDATORY**: This codebase has working authentication, payment integration (Polar), and admin functionality that MUST NOT be broken.
+
+### Before Starting Any Task
+1. Understand that existing features are working and tested
+2. Review the test suite in `/app/e2e/tests/` to understand critical functionality
+3. Run `./scripts/quick-test.sh` to verify the system is healthy
+
+### After Completing Any Task
+**You MUST run the following verification**:
+```bash
+./scripts/post-task-verify.sh
+```
+
+If ANY tests fail, you MUST fix the issues before considering the task complete.
+
+### Critical Features That Must Not Break
+1. **Authentication**: Login with demo-user@nuxtstarterkit.com must work
+2. **Payment System**: Polar integration on /pricing and /dashboard/billing
+3. **Admin Access**: Admin user (demo-admin@nuxtstarterkit.com) functionality
+4. **Protected Routes**: /dashboard must redirect to login when unauthenticated
+5. **Database Integrity**: Demo users must remain in the database
+
+**Note**: A previous Claude session accidentally deleted the database, causing significant data loss. The test suite was created specifically to prevent this from happening again.
+
 ## Project Overview
 
 This is a Nuxt 3 Starter Kit for building SaaS applications. It uses a layered architecture with modular features that can be enabled/disabled as needed.
@@ -18,11 +44,26 @@ pnpm lint             # Run ESLint
 pnpm lint:fix         # Run ESLint with auto-fix
 ```
 
-### Testing
+### Testing (MANDATORY after any changes)
 ```bash
-pnpm test:e2e         # Run Playwright E2E tests
-pnpm test:e2e:ui      # Run Playwright tests with UI
+# REQUIRED: Run after completing ANY task
+./scripts/post-task-verify.sh        # Quick verification (TypeScript, lint, auth)
+./scripts/post-task-verify.sh --full # Full test suite (includes all E2E tests)
+
+# Quick checks during development
+./scripts/quick-test.sh              # Ultra-fast auth check (<2s)
+
+# Full test suites
+pnpm test:e2e                        # Run all Playwright E2E tests
+pnpm test:e2e:ui                     # Run Playwright tests with UI
+
+# Specific critical test suites (13 tests total)
+pnpm playwright test app/e2e/tests/system-health.e2e.ts        # Auth & navigation (2 tests)
+pnpm playwright test app/e2e/tests/payment-integration.e2e.ts  # Polar payments (6 tests)
+pnpm playwright test app/e2e/tests/admin-functionality.e2e.ts  # Admin features (5 tests)
 ```
+
+**⚠️ IMPORTANT**: If any tests fail after your changes, you MUST fix them before the task is complete.
 
 ### Database
 ```bash
@@ -147,6 +188,63 @@ The following commands are approved for use in this project:
 - `tail` - For viewing log files
 - `chmod` - For setting file permissions
 
+## ⚠️ CRITICAL DATABASE SAFETY WARNING ⚠️
+**NEVER** use the following destructive commands:
+- `rm -rf .data` or any variation that could delete the database
+- Direct deletion of `.data/hub/*.db` files
+- Any command that could wipe user data or database contents
+
+**ALWAYS** use the provided database scripts instead:
+- `./scripts/db-backup.sh` - Create a backup BEFORE any risky operations
+- `./scripts/db-reset.sh` - Safe database reset with confirmation prompt
+- `./scripts/db-restore.sh` - Restore from backup if something goes wrong
+
+**Note**: The `rm` command has been explicitly removed from Claude's permissions to prevent accidental data loss.
+
+## Available MCP Servers
+
+Claude has access to the following MCP (Model Context Protocol) servers to enhance development capabilities:
+
+### 1. **Context7** - Documentation & Code Examples
+- Fetch up-to-date documentation for any library/framework
+- Access thousands of code snippets and examples
+- Usage: Automatically used when you need library documentation
+
+### 2. **Supabase** - Database & Backend Services
+- Manage Supabase projects, databases, and edge functions
+- Execute SQL queries and migrations
+- Usage: For database operations and Supabase-specific tasks
+
+### 3. **Playwright** - Browser Automation & Testing
+- Automate browser interactions and testing
+- Take screenshots, navigate pages, fill forms
+- Usage: For E2E testing and web scraping tasks
+
+### 4. **Cloudflare** - Edge Computing & CDN
+- Search Cloudflare documentation
+- Help with Workers, Pages, R2, and other Cloudflare services
+- Usage: For deployment and edge computing questions
+
+### 5. **Sequential Thinking** - Complex Problem Solving
+- Break down complex problems into steps
+- Provides structured thinking for difficult tasks
+- Usage: Automatically used for complex problem-solving
+
+### 6. **Snap-Happy** - Screenshot Management
+- Take and manage screenshots
+- List windows and capture specific applications
+- Usage: For visual documentation and debugging
+
+### 7. **Mastra** - AI Framework Documentation
+- Access Mastra.ai documentation and examples
+- Learn about AI agents, workflows, and tools
+- Usage: For AI/ML integration questions
+
+### 8. **Polar** - Payment & Subscription Management
+- Manage products, subscriptions, and customers
+- Handle payment-related operations
+- Usage: For payment system integration
+
 ## Quick Commands Reference
 
 ### Development Scripts
@@ -199,7 +297,8 @@ If the dev server tries to use port 3000 instead of 9009:
 
 ### Database Write Errors
 If you see "attempt to write a readonly database":
-- Clear the database cache: `rm -rf .data/hub/cache.db*`
+- **WARNING**: Only clear cache files, NEVER the main database
+- Clear ONLY the cache: `rm -rf .data/hub/cache.db*` (cache.db ONLY!)
 - Restart the dev server
 
 ## Development Cleanup Guidelines
@@ -221,3 +320,63 @@ When testing features or running development tasks, always clean up afterwards:
 - Clean up immediately after testing to avoid resource leaks
 - Verify no processes are consuming resources after development sessions
 - Use the provided helper scripts for consistent process management
+- **IMPORTANT**: Run `./scripts/post-task-verify.sh` after completing any development task to ensure critical features remain intact
+
+## 🛡️ Comprehensive E2E Test Suite
+
+A comprehensive test suite protects critical features from regression. **These tests MUST pass after any changes.**
+
+### Test Coverage (13 Critical Tests)
+1. **Authentication System** (2 tests)
+   - Login functionality with demo users
+   - Protected route security
+
+2. **Payment Integration** (6 tests)
+   - Polar pricing page
+   - Billing dashboard access
+   - Payment system configuration
+
+3. **Admin Functionality** (5 tests)
+   - Admin user authentication
+   - Role-based access control
+   - Admin dashboard features
+
+### Running Tests Is MANDATORY
+
+**After ANY code changes, you MUST run**:
+```bash
+./scripts/post-task-verify.sh        # Quick check (required minimum)
+./scripts/post-task-verify.sh --full # Full verification (recommended)
+```
+
+**If tests fail**:
+1. DO NOT consider the task complete
+2. Fix the breaking changes immediately
+3. Re-run tests until all pass
+4. Only then is the task done
+
+### Test Execution Times
+- Quick test: < 2 seconds
+- Post-task verify: < 30 seconds
+- Full test suite: < 10 seconds
+
+### Why This Matters
+This test suite was created after a database deletion incident caused significant data loss. The tests ensure that critical features (authentication, payments, admin access) that "we've worked hard to complete" remain functional after any changes.
+
+**Remember**: Breaking existing functionality is NOT acceptable. All tests must pass.
+
+See `/docs/testing-guide.md` for detailed testing documentation.
+
+## 📋 Task Completion Checklist
+
+Before marking ANY task as complete, ensure:
+- [ ] All existing features still work (auth, payments, admin)
+- [ ] `./scripts/post-task-verify.sh` runs without errors
+- [ ] No TypeScript errors introduced
+- [ ] No ESLint errors that break functionality
+- [ ] Demo users can still log in
+- [ ] Protected routes still redirect when unauthenticated
+- [ ] Pricing page still displays Polar plans
+- [ ] Admin user still has appropriate access
+
+**FINAL REMINDER**: The test suite exists because a previous Claude session deleted the database. Do not let this happen again. Run the tests.

@@ -106,6 +106,8 @@ if ! grep -r "api/seed-user" app/server/api/ > /dev/null 2>&1; then
     # Create seed API endpoint
     mkdir -p app/server/api
     cat > app/server/api/seed-user.post.ts << 'EOF'
+import { eq } from 'drizzle-orm'
+
 export default defineEventHandler(async (event) => {
   // Only allow in development
   if (process.env.NODE_ENV === 'production') {
@@ -118,41 +120,59 @@ export default defineEventHandler(async (event) => {
   const { email, name, hashedPassword, role } = await readBody(event)
   
   try {
-    // Check if user exists
-    const existingUser = await useDB().select().from(tables.user)
-      .where(eq(tables.user.email, email))
-      .get()
+    const db = await hubDatabase()
     
-    if (existingUser) {
+    // Check if user exists
+    const existingUser = await db
+      .select()
+      .from(tables.users)
+      .where(eq(tables.users.email, email))
+      .limit(1)
+    
+    if (existingUser.length > 0) {
       // Update existing user
-      await useDB().update(tables.user)
+      await db.update(tables.users)
         .set({
           name,
-          password: hashedPassword,
           role,
           updatedAt: new Date()
         })
-        .where(eq(tables.user.email, email))
-        .run()
+        .where(eq(tables.users.email, email))
+      
+      // Update password
+      await db.update(tables.passwords)
+        .set({
+          hashedPassword,
+          updatedAt: new Date()
+        })
+        .where(eq(tables.passwords.userId, existingUser[0].id))
       
       return { updated: true, email }
     } else {
       // Create new user
-      await useDB().insert(tables.user)
+      const userId = generateId('usr')
+      
+      await db.insert(tables.users)
         .values({
-          id: crypto.randomUUID(),
+          id: userId,
           email,
           name,
-          password: hashedPassword,
           role,
           createdAt: new Date(),
           updatedAt: new Date()
         })
-        .run()
+      
+      await db.insert(tables.passwords)
+        .values({
+          userId,
+          hashedPassword,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        })
       
       return { created: true, email }
     }
-  } catch (error) {
+  } catch (error: any) {
     throw createError({
       statusCode: 500,
       statusMessage: error.message

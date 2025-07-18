@@ -50,7 +50,7 @@
     },
     "Context7": {
       "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp"]
+      "args": ["mcp-remote", "https://mcp.context7.com/sse"]
     }
   }
 }

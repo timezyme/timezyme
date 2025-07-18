@@ -5,12 +5,6 @@ import type { H3Event } from 'h3'
 export function usePayment (event: H3Event) {
   const { private: { polarAccessToken, polarOrganizationId, polarServer } } = useRuntimeConfig(event)
 
-  // Debug logging
-  const serverLogger = useServerLogger()
-  serverLogger.info('[usePayment] Token:', polarAccessToken ? `${polarAccessToken.substring(0, 20)}...` : 'NOT SET')
-  serverLogger.info('[usePayment] Organization ID:', polarOrganizationId || 'NOT SET')
-  serverLogger.info('[usePayment] Server:', polarServer || 'NOT SET')
-
   const polar = new Polar({
     accessToken: polarAccessToken,
     server: polarServer as 'production' | 'sandbox',

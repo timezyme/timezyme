@@ -67,6 +67,23 @@ export default withNuxt(
       files: ['scripts/**/*.{js,mjs,ts}'],
       rules: {
         'node/prefer-global/process': 'off',
+        'no-console': 'off', // Allow console in scripts
+      },
+    },
+    {
+      name: 'server-rules',
+      files: ['**/server/**/*.{js,ts}'],
+      rules: {
+        'node/prefer-global/process': 'off', // Allow process in server files
+      },
+    },
+    {
+      name: 'test-rules',
+      files: ['**/*.test.{js,ts}', '**/*.spec.{js,ts}', '**/e2e/**/*.{js,ts}', '**/tests/**/*.{js,ts}', '**/test-helpers.{js,ts}'],
+      rules: {
+        'no-console': 'off', // Allow console in test files
+        'no-unused-vars': 'off',
+        'unused-imports/no-unused-vars': 'off',
       },
     },
   ),

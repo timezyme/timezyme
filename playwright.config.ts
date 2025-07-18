@@ -1,4 +1,7 @@
 /* eslint-disable node/prefer-global/process */
+import { fileURLToPath } from 'node:url'
+
+import type { ConfigOptions } from '@nuxt/test-utils/playwright'
 import { defineConfig, devices } from '@playwright/test'
 
 /**
@@ -12,7 +15,7 @@ import { defineConfig, devices } from '@playwright/test'
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-export default defineConfig({
+export default defineConfig<ConfigOptions>({
   expect: {
     toHaveScreenshot: { maxDiffPixelRatio: 0.12 },
   },
@@ -67,17 +70,22 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'http://localhost:9009',
-    screenshot: 'only-on-failure',
+    /* Nuxt-specific configuration */
+    nuxt: {
+      rootDir: fileURLToPath(new URL('.', import.meta.url)),
+    },
 
+    screenshot: 'only-on-failure',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
     video: 'retain-on-failure',
   },
 
   /* Run your local dev server before starting the tests */
   webServer: {
     command: 'pnpm run dev',
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
     url: 'http://localhost:9009',
   },
 
