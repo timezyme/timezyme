@@ -1,11 +1,6 @@
 <script setup lang="ts">
 const { t } = useI18n()
 
-function scrollToWaitlist () {
-  const waitlistSection = document.getElementById('waitlist')
-  waitlistSection?.scrollIntoView({ behavior: 'smooth' })
-}
-
 definePageMeta({
   layout: 'landing',
 })
@@ -49,52 +44,21 @@ defineOgImageComponent('OgImageTemplate')
           TimeZyme transforms any document into interactive visual stories.
         </p>
 
-        <!-- CTA Button -->
-        <div class="pt-8">
-          <button
-            class="gradient-btn text-white font-semibold px-8 py-4 rounded-lg text-lg hover:scale-105 transition-transform flex items-center gap-2 mx-auto"
-            @click="scrollToWaitlist"
-          >
-            <i class="i-lucide-sparkles" />
-            Join Waitlist
-          </button>
+        <!-- Get Early Access Section -->
+        <div class="pt-12 space-y-6">
+          <div class="space-y-2">
+            <div class="flex items-center justify-center gap-2 text-purple-400">
+              <i class="i-lucide-key text-2xl" />
+              <h3 class="text-3xl font-bold text-white">{{ t('pages.home.waitlistSection.title') }}</h3>
+            </div>
+            <p class="text-gray-400">{{ t('pages.home.waitlistSection.description') }}</p>
+          </div>
+          <div class="flex justify-center">
+            <WaitlistForm />
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Pricing Section -->
-    <UPageSection
-      :title="t('pages.home.pricingSection.title')"
-      :description="t('pages.home.pricingSection.description')"
-      icon="i-lucide-credit-card"
-    >
-      <ClientOnly>
-        <PricingPlans />
-        <template #fallback>
-          <USkeleton class="h-[500px]" />
-        </template>
-      </ClientOnly>
-    </UPageSection>
-
-    <!-- FAQ Section -->
-    <UPageSection
-      :title="t('pages.home.faqSection.title')"
-      :description="t('pages.home.faqSection.description')"
-      icon="i-lucide-shield-question"
-    >
-      <FAQ />
-    </UPageSection>
-
-    <!-- Waitlist Section -->
-    <UPageSection
-      id="waitlist"
-      :title="t('pages.home.waitlistSection.title')"
-      :description="t('pages.home.waitlistSection.description')"
-      icon="i-lucide-key"
-    >
-      <template #links>
-        <WaitlistForm />
-      </template>
-    </UPageSection>
   </div>
 </template>
