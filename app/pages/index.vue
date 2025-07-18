@@ -6,45 +6,6 @@ function scrollToWaitlist () {
   waitlistSection?.scrollIntoView({ behavior: 'smooth' })
 }
 
-interface HeroSectionFeature {
-  featureCount: number
-  featureIcons: Array<string>
-  imagePath: string
-  name: string
-  reverse?: boolean
-}
-const features: Array<HeroSectionFeature> = [
-  {
-    featureCount: 3,
-    featureIcons: [
-      'i-lucide-rocket',
-      'i-lucide-chef-hat',
-      'i-lucide-earth',
-    ],
-    imagePath: '/images/placeholder.jpg',
-    name: 'one',
-  },
-  {
-    featureCount: 3,
-    featureIcons: [
-      'i-lucide-chef-hat',
-      'i-lucide-rocket',
-      'i-lucide-earth',
-    ],
-    imagePath: '/images/placeholder.jpg',
-    name: 'two',
-    reverse: true,
-  },
-]
-
-function getFeatures (feature: HeroSectionFeature) {
-  return Array.from({ length: feature.featureCount }, (_, index) => ({
-    description: t(`pages.home.featureSection.${feature.name}.feature${index + 1}.description`),
-    icon: feature.featureIcons[index],
-    title: t(`pages.home.featureSection.${feature.name}.feature${index + 1}.title`),
-  }))
-}
-
 definePageMeta({
   layout: 'landing',
 })
@@ -100,19 +61,6 @@ defineOgImageComponent('OgImageTemplate')
         </div>
       </div>
     </section>
-
-    <!-- Feature Sections -->
-    <UPageSection
-      v-for="feature of features"
-      :key="feature.name"
-      :title="t(`pages.home.featureSection.${feature.name}.title`)"
-      :description="t(`pages.home.featureSection.${feature.name}.description`)"
-      orientation="horizontal"
-      :reverse="feature.reverse"
-      :features="getFeatures(feature)"
-    >
-      <nuxt-img :src="feature.imagePath" />
-    </UPageSection>
 
     <!-- Pricing Section -->
     <UPageSection
