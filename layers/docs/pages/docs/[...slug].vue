@@ -20,17 +20,15 @@ const navigation = inject<Ref<Array<ContentNavigationItem>>>('navigationDocs')
 const breadcrumb = computed(() => mapContentNavigation(findPageBreadcrumb(navigation?.value, page.value)).map(({ icon, ...link }) => link))
 
 const links = [{
-  label: 'Nuxters',
+  icon: 'i-simple-icons-x',
+  label: 'X',
   target: '_blank',
-  to: 'https://nuxters.nuxt.com',
+  to: 'https://x.com/timezyme',
 }, {
-  label: 'Video Courses',
+  icon: 'i-simple-icons-discord',
+  label: 'Discord',
   target: '_blank',
-  to: 'https://masteringnuxt.com/nuxt3?ref=nuxt',
-}, {
-  label: 'Nuxt on GitHub',
-  target: '_blank',
-  to: 'https://github.com/nuxt',
+  to: 'https://discord.gg/timezyme',
 }]
 
 useSeoMeta({
@@ -110,10 +108,25 @@ defineOgImageComponent('OgImageTemplate')
               type="dashed"
             />
 
-            <UPageLinks
-              :title="$t('pages.docs.tocLinksTitle')"
-              :links="links"
-            />
+            <div>
+              <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-3">
+                {{ $t('pages.docs.tocLinksTitle') }}
+              </h3>
+              <div class="flex items-center gap-3">
+                <UButton
+                  v-for="link in links"
+                  :key="link.label"
+                  :to="link.to"
+                  :target="link.target"
+                  :aria-label="link.label"
+                  color="neutral"
+                  variant="ghost"
+                  size="sm"
+                  :icon="link.icon"
+                  square
+                />
+              </div>
+            </div>
           </div>
         </template>
       </UContentToc>
