@@ -231,6 +231,13 @@ export default defineNuxtConfig({
 
   sitemap: { exclude: ['/admin/**'] },
 
+  typescript: {
+    strict: true,
+    tsConfig: {
+      include: ['./types/**/*'],
+    },
+  },
+
   umami: {
     domains: [siteConfig.domain],
     ignoreLocalhost: true,

@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { siteConfig } from '~~/config/siteConfig'
 
-const quickLinks = [
+interface FooterLink {
+  badge?: string
+  label: string
+  to: string
+}
+
+const quickLinks: Array<FooterLink> = [
   {
     label: 'Blog',
     to: '/blog',
@@ -16,7 +22,7 @@ const quickLinks = [
   },
 ]
 
-const companyLinks = [
+const companyLinks: Array<FooterLink> = [
   {
     label: 'About us',
     to: '/about',
@@ -46,6 +52,12 @@ const companyLinks = [
     to: '/contact',
   },
 ]
+
+function scrollToTop () {
+  if (typeof window !== 'undefined') {
+    window.scrollTo({ behavior: 'smooth', top: 0 })
+  }
+}
 
 const socialLinks = [
   {
@@ -159,7 +171,7 @@ const socialLinks = [
             variant="ghost"
             size="sm"
             aria-label="Back to top"
-            @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+            @click="scrollToTop"
           />
         </div>
       </div>

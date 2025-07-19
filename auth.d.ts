@@ -1,7 +1,5 @@
-import type { InsertUser } from '~/layers/db/server/utils/schema'
-
 declare module '#auth-utils' {
-  interface User extends InsertUser {
+  interface User {
     avatarUrl?: null | string
     banned: boolean
     bannedReason?: null | string

@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     const { user } = await requireUserSession(event)
-    if (!user.id) {
+    if (!user?.id) {
       throw createError({
         statusCode: 400,
         statusMessage: 'User not found',

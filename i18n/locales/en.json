@@ -464,15 +464,27 @@
       "headline": "Contact us",
       "form": {
         "nameField": {
-          "label": "Name"
+          "label": "Name",
+          "placeholder": "John Doe",
+          "ariaLabel": "Enter your full name"
         },
         "emailField": {
-          "label": "Email"
+          "label": "Email",
+          "placeholder": "john{'@'}example.com",
+          "ariaLabel": "Enter your email address"
         },
         "messageField": {
-          "label": "Message"
+          "label": "Message",
+          "placeholder": "Tell us about your inquiry...",
+          "ariaLabel": "Enter your message"
         },
-        "submitButton": "Send message"
+        "submitButton": "Send message",
+        "submitButtonSending": "Sending...",
+        "ariaLabels": {
+          "formTitle": "Contact form",
+          "submitButton": "Send your message",
+          "requiredField": "This field is required"
+        }
       },
       "toast": {
         "success": {

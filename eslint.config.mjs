@@ -13,7 +13,7 @@ export default withNuxt(
       },
     },
     {
-      ignores: ['.github/*'],
+      ignores: ['.github/*', 'planning/**/*', '**/*.md'],
     },
     {
       name: 'base-rules',

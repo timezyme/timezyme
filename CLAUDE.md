@@ -175,6 +175,14 @@ Set Polar **production** credentials in NuxtHub environment variables:
 - Import sorting enforced by perfectionist plugin
 - Use single quotes for strings
 - 2-space indentation
+- **ESLint Configuration**: Uses `eslint.config.mjs` (flat config format)
+  - The `.eslintignore` file is deprecated - use the `ignores` property in the config
+  - To ignore directories, add them to the `ignores` array:
+    ```javascript
+    {
+      ignores: ['.github/*', 'planning/**/*'],
+    }
+    ```
 
 ### Deployment
 - Automatic deployment via GitHub Actions on push
@@ -185,6 +193,81 @@ Set Polar **production** credentials in NuxtHub environment variables:
 ## Security Notes
 - **Password Hashing**: This project uses Scrypt for password hashing (NOT bcrypt)
 - Always use Scrypt-based utilities when working with password hashing/verification
+
+## TypeScript Configuration
+
+### Module Augmentation for nuxt-auth-utils
+When extending the `User` interface from nuxt-auth-utils, you MUST place the type declaration file (`auth.d.ts`) in the **project root directory**, not in a subdirectory like `types/`.
+
+**Correct location**: `/auth.d.ts`
+
+Example `auth.d.ts`:
+```typescript
+declare module '#auth-utils' {
+  interface User {
+    avatarUrl?: null | string
+    banned: boolean
+    bannedReason?: null | string
+    createdAt?: Date
+    email: string
+    emailVerified: boolean
+    hashedPassword?: null | string
+    id: string
+    lastActive?: Date
+    name: string
+    onboarded: boolean
+    role: string
+    updatedAt?: Date
+  }
+
+  interface UserSession {
+    impersonatedBy?: string
+  }
+}
+export {}
+```
+
+### TypeScript Configuration in nuxt.config.ts
+The project includes TypeScript configuration to support strict type checking:
+```typescript
+typescript: {
+  strict: true,
+  tsConfig: {
+    include: ['./types/**/*'],
+  },
+},
+```
+
+### Common TypeScript Issues and Solutions
+
+1. **"Property 'id' does not exist on type 'User'"**
+   - Solution: Ensure `auth.d.ts` is in the project root, not in `types/` directory
+   - Run `pnpm nuxi prepare` to regenerate types after adding/moving the file
+
+2. **UI Component Color Props**
+   - Nuxt UI components only accept specific color values
+   - Valid colors: `"error" | "info" | "primary" | "secondary" | "success" | "warning" | "neutral"`
+   - Do NOT use custom colors like "cyan"
+
+3. **Window Object Access in Vue Components**
+   - Create a proper function instead of inline access:
+   ```typescript
+   function scrollToTop() {
+     if (typeof window !== 'undefined') {
+       window.scrollTo({ behavior: 'smooth', top: 0 })
+     }
+   }
+   ```
+
+4. **Array Type Definitions**
+   - Use generic syntax: `Array<FooterLink>` instead of `FooterLink[]`
+   - This follows the project's ESLint rules
+
+### Running Type Checks
+Always run TypeScript checks after making changes:
+```bash
+pnpm typecheck
+```
 
 ## Allowed Development Commands
 The following commands are approved for use in this project:

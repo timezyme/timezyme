@@ -63,7 +63,7 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
             type="submit"
             :loading="isLoading"
             variant="soft"
-            color="cyan"
+            color="primary"
           >
             {{ t('components.waitlistForm.subscribeButton') }}
           </UButton>
