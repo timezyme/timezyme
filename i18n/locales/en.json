@@ -76,21 +76,45 @@
       }
     },
     "faq": {
-      "returnPolicy": {
-        "question": "What's your return policy?",
-        "answer": "We offer a 30-day money back guarantee if you're not satisfied with our product."
+      "whatAreZymes": {
+        "question": "What are Zymes?",
+        "answer": "Zymes are interactive, visual representations of your documents that make complex information instantly understandable. Think of them as 'living documents' that transform static text into dynamic visual experiences with timelines, mind maps, data visualizations, and spatial layouts that adapt to how people naturally process information."
+      },
+      "howDoesItWork": {
+        "question": "How does TimeZyme transform my documents?",
+        "answer": "TimeZyme uses advanced AI and natural language processing to analyze your document's content, structure, and relationships. It then automatically selects the optimal visual format (timeline, concept map, data story, or spatial layout) and creates an interactive experience with hover effects, zoom controls, and guided navigation paths."
+      },
+      "supportedFormats": {
+        "question": "What file formats does TimeZyme support?",
+        "answer": "TimeZyme supports a wide variety of formats including PDF, Microsoft Office (Word, PowerPoint, Excel), plain text, Markdown, LaTeX, EPUB, Google Docs/Slides, and structured data formats like CSV and JSON. We recommend keeping files under 50MB for optimal processing speed."
+      },
+      "processingTime": {
+        "question": "How long does it take to create a Zyme?",
+        "answer": "Processing time depends on file size and complexity. Small documents (under 1MB) typically take 5-10 seconds, medium files (1-10MB) take 10-30 seconds, and larger documents (10-50MB) may take 30-90 seconds. Our AI works to deliver results as quickly as possible while ensuring quality."
+      },
+      "dataSecurity": {
+        "question": "Is my data secure with TimeZyme?",
+        "answer": "Absolutely. We take data security seriously with enterprise-grade encryption, secure cloud infrastructure, and strict privacy policies. Your documents are processed securely and you maintain full ownership of your content. We never share your data with third parties."
+      },
+      "pricing": {
+        "question": "What are the pricing options?",
+        "answer": "TimeZyme offers flexible pricing plans to suit different needs. We have a free tier for trying out the service, monthly and yearly Pro subscriptions with advanced features and higher processing limits, and enterprise plans for organizations. Check our pricing page for current rates and features."
+      },
+      "collaboration": {
+        "question": "Can I share Zymes with others?",
+        "answer": "Yes! Zymes are designed for sharing. You can generate shareable links, embed Zymes in websites, control access permissions, and even enable real-time collaboration features (coming soon). Recipients don't need a TimeZyme account to view shared Zymes."
+      },
+      "export": {
+        "question": "Can I export or download my Zymes?",
+        "answer": "Yes, you can export Zymes in multiple formats including interactive HTML for offline viewing, static images (PNG/SVG) for presentations, PDF for printing, and raw data for further analysis. Zymes work everywhere with standard web technologies."
+      },
+      "customization": {
+        "question": "Can I customize how my Zymes look?",
+        "answer": "Absolutely! You can customize visual themes (light/dark/custom), color schemes for brand alignment, font choices, animation levels, interaction styles, and information density. Our API also allows developers to create deeply customized transformations."
       },
       "support": {
-        "question": "Do you offer customer support?",
-        "answer": "Yes, we offer 24/7 customer support."
-      },
-      "paymentMethods": {
-        "question": "What payment methods do you accept?",
-        "answer": "We accept all major credit cards and PayPal."
-      },
-      "discount": {
-        "question": "Do you offer discounts?",
-        "answer": "Yes, we offer discounts for yearly subscriptions."
+        "question": "How can I get help if I need it?",
+        "answer": "Join our vibrant Discord community (link in footer) for instant help from fellow TimeZyme users and our team! Discord is our primary support channel where you'll get the fastest responses. We also provide comprehensive documentation, video tutorials, and community forums. For specific issues, reach us at support{'@'}timezyme.com. Coming soon: Our AI-powered chat assistant will provide instant, intelligent answers to all your TimeZyme questions, available 24/7 right within the platform."
       }
     },
     "waitlistForm": {
