@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Waitlist Form</title>
+</head>
+<body>
+    <h1>Test Waitlist Submission</h1>
+    <p>Open this page at: http://localhost:9009/</p>
+    <p>Then use the waitlist form on the homepage to test email submission.</p>
+    
+    <h2>Things to verify:</h2>
+    <ol>
+        <li>Submit an email address in the waitlist form</li>
+        <li>Check the browser console for any errors</li>
+        <li>Check the terminal running `pnpm dev` for email logs</li>
+        <li>If email sending is disabled, you should see the email content in the console</li>
+        <li>The email should have "Waitlist Confirmation" as the heading</li>
+        <li>The verification URL should be http://localhost:9009/api/waitlist/verify-email-token?token=...</li>
+    </ol>
+    
+    <h2>If you get "already subscribed" error:</h2>
+    <ul>
+        <li>Use a different email like: test-${Date.now()}@example.com</li>
+        <li>Or go to: http://localhost:9009/dashboard/admin/waitlist</li>
+        <li>Login with: demo-admin@nuxtstarterkit.com / demoAdminNuxtStarterKit0815#</li>
+    </ul>
+</body>
+</html>

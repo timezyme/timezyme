@@ -51,6 +51,13 @@
     "Context7": {
       "command": "npx",
       "args": ["mcp-remote", "https://mcp.context7.com/sse"]
+    },
+    "resend": {
+      "command": "node",
+      "args": ["ABSOLUTE_PATH_TO_MCP_SEND_EMAIL_PROJECT/build/index.js"],
+      "env": {
+        "RESEND_API_KEY": "YOUR_RESEND_API_KEY"
+      }
     }
   }
 }

@@ -19,6 +19,22 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  csurf: {
+    // excludedUrls option might not be supported, we'll handle it differently
+    addCsrfTokenToEventCtx: true,
+    cookie: {
+      httpOnly: true,
+      path: '/',
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production',
+    },
+    cookieKey: 'csrf',
+    enabled: true,
+    headerName: 'x-csrf-token',
+    https: process.env.NODE_ENV === 'production',
+    methodsToProtect: ['POST', 'PUT', 'PATCH'],
+  },
+
   devServer: {
     port: 9009,
   },
@@ -105,6 +121,7 @@ export default defineNuxtConfig({
     'nuxt-umami',
     '@nuxt/content',
     'nuxt-security',
+    'nuxt-csurf',
     '@nuxt/image',
     '@nuxt/fonts',
     'nuxt-llms',
@@ -157,6 +174,10 @@ export default defineNuxtConfig({
     '/pricing': { prerender: true },
     '/testimonials': { prerender: true },
     '/api/**': { cors: true },
+    '/api/waitlist/subscribe': {
+      cors: true,
+      // Rate limiting will be configured at the global level
+    },
     // Redirect intruder
     '/.env': { redirect: { statusCode: 302, to: REDIRECT_INTRUDERS_GIF } },
     '/.info.php': { redirect: { statusCode: 302, to: REDIRECT_INTRUDERS_GIF } },
@@ -219,7 +240,14 @@ export default defineNuxtConfig({
       },
       crossOriginEmbedderPolicy: false,
     },
-    rateLimiter: false,
+    rateLimiter: {
+      driver: {
+        name: 'lruCache',
+      },
+      interval: 60000, // 1 minute
+      // Global rate limiter configuration
+      tokensPerInterval: 100,
+    },
   },
 
   site: {

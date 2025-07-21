@@ -57,17 +57,27 @@ export function useEmail () {
   }
 
   const sendWaitlistVerificationEmail = async (email: string, emailVerificationToken: string) => {
+    const emailVerificationUrl = `${baseUrl}/api/waitlist/verify-email-token?token=${emailVerificationToken}`
+    const html = await render(WaitlistConfirmationTemplate, {
+      emailVerificationUrl,
+    }, { pretty: true })
+
     if (import.meta.dev && !emailSendInDevMode) {
-      // eslint-disable-next-line no-console
-      console.table({ email, emailVerificationToken })
+      /* eslint-disable no-console */
+      console.log('\n📧 Waitlist Verification Email (Not Sent - Dev Mode):')
+      console.log('To:', email)
+      console.log('Subject:', `Confirm waitlist request for ${siteConfig.name}`)
+      console.log('Verification URL:', emailVerificationUrl)
+      console.log('HTML Content Preview:')
+      console.log('===EMAIL HTML START===')
+      console.log(html)
+      console.log('===EMAIL HTML END===')
+      console.log('\n')
+      /* eslint-enable no-console */
     }
     else {
-      const html = await render(WaitlistConfirmationTemplate, {
-        emailVerificationUrl: `${baseUrl}/api/waitlist/verify-email-token?token=${emailVerificationToken}`,
-      }, { pretty: true })
-
       const emailOptions = {
-        from: fromEmail,
+        from: 'waitlist@timezyme.com',
         html,
         subject: `Confirm waitlist request for ${siteConfig.name}`,
         to: email,

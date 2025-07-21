@@ -129,6 +129,14 @@
           "error": {
             "title": "Failed to subscribe"
           }
+        },
+        "rateLimit": {
+          "title": "Too many attempts",
+          "description": "Please wait before trying again. You can submit up to 3 requests per hour."
+        },
+        "disposableEmail": {
+          "title": "Invalid email type",
+          "description": "Please use a permanent email address. Temporary or disposable email addresses are not allowed."
         }
       }
     }

@@ -13,7 +13,7 @@ defineProps<Props>()
 
 <template>
   <EmailWrapper>
-    <Heading>Login</Heading>
+    <Heading>Waitlist Confirmation</Heading>
     <Hr />
     <Text class="text-base">
       Hey,

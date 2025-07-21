@@ -4,15 +4,18 @@ import { z } from 'zod'
 
 const schema = z.object({
   email: z.string().email(),
+  website: z.string().optional(), // Honeypot field
 })
 type Schema = z.output<typeof schema>
 
 const { showErrorToast, showSuccessToast } = useAppToast()
 const { t } = useI18n()
 const logger = useLogger()
+const { csrf } = useCsrf()
 
 const state = reactive({
   email: '',
+  website: '', // Honeypot field
 })
 
 const isLoading = ref(false)
@@ -22,14 +25,42 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
 
   try {
     await $fetch('/api/waitlist/subscribe', {
-      body: event.data,
+      body: {
+        email: event.data.email,
+        website: event.data.website, // Include honeypot
+      },
+      headers: {
+        'x-csrf-token': csrf,
+      },
       method: 'POST',
     })
-    showSuccessToast({ description: t('components.waitlistForm.toast.subscribe.success.description'), title: t('components.waitlistForm.toast.subscribe.success.title') })
+    showSuccessToast({
+      description: t('components.waitlistForm.toast.subscribe.success.description'),
+      title: t('components.waitlistForm.toast.subscribe.success.title'),
+    })
+    // Clear the form on success
+    state.email = ''
+    state.website = ''
   }
   catch (error: any) {
     logger.error('Failed to subscribe', error)
-    showErrorToast(t('components.waitlistForm.toast.subscribe.error.title'), error)
+
+    // Handle specific error cases
+    if (error.statusCode === 429) {
+      showErrorToast(
+        t('components.waitlistForm.toast.rateLimit.title'),
+        { description: t('components.waitlistForm.toast.rateLimit.description') },
+      )
+    }
+    else if (error.statusCode === 400 && error.data?.statusMessage?.includes('Disposable')) {
+      showErrorToast(
+        t('components.waitlistForm.toast.disposableEmail.title'),
+        { description: t('components.waitlistForm.toast.disposableEmail.description') },
+      )
+    }
+    else {
+      showErrorToast(t('components.waitlistForm.toast.subscribe.error.title'), error)
+    }
   }
   finally {
     isLoading.value = false
@@ -56,6 +87,7 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
         placeholder="you@mail.com"
         :ui="{ trailing: 'pe-1' }"
         class="w-full"
+        autocomplete="email"
       >
         <template #trailing>
           <UButton
@@ -70,5 +102,31 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
         </template>
       </UInput>
     </UFormField>
+
+    <!-- Honeypot field - hidden from users but visible to bots -->
+    <input
+      v-model="state.website"
+      type="text"
+      name="website"
+      tabindex="-1"
+      autocomplete="off"
+      class="waitlist-honeypot"
+      aria-hidden="true"
+    >
   </UForm>
 </template>
+
+<style scoped>
+/* Hide the honeypot field from users but keep it accessible to bots */
+.waitlist-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+</style>
