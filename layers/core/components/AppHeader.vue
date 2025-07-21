@@ -17,6 +17,11 @@ const links = computed(() => ([
     to: '/about',
   },
   {
+    icon: 'i-lucide-sparkles',
+    label: 'Product Story',
+    to: '/story',
+  },
+  {
     icon: 'i-lucide-book',
     label: t('general.links.docs'),
     to: '/docs',
