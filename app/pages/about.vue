@@ -282,15 +282,15 @@ definePageMeta({
                   </a>
 
                   <p class="text-gray-300 mb-4">
-                    Stephen is a seasoned technology entrepreneur with over 20 years of experience building innovative software solutions. His passion for transforming how people interact with information led to the creation of TimeZyme.
+                    Stephen is a seasoned software engineer with 21 years of experience across entertainment, engineering, and finance sectors. His extensive background in building secure, high-performance, and scalable applications led to the creation of TimeZyme, incubated at the Harvard Innovation Labs.
                   </p>
 
                   <p class="text-gray-300 mb-4">
-                    Prior to TimeZyme, Stephen founded and led multiple successful ventures in enterprise software, AI/ML applications, and knowledge management systems. He brings deep expertise in document processing, natural language understanding, and building scalable SaaS platforms.
+                    Stephen brings deep expertise from his tenure at industry leaders including Goldman Sachs (Senior Vice President), The Walt Disney Company (Senior Software Engineer), and Qualcomm Institute. He specializes in enterprise software development, security engineering, and architecting cloud-based solutions. His experience spans full-stack development, compliance frameworks, and building mission-critical applications for global organizations.
                   </p>
 
                   <p class="text-gray-300">
-                    Stephen holds strong technical expertise in full-stack development, cloud architecture, and artificial intelligence. He's driven by the vision of making complex knowledge universally accessible and actionable for professionals across all industries.
+                    Currently pursuing his Bachelor of Liberal Arts in Computer Science at Harvard University (expected graduation: Fall 2025), Stephen combines academic rigor with decades of practical experience. He's driven by the vision of leveraging AI to transform how professionals interact with complex documents and information.
                   </p>
 
                   <div class="mt-6 pt-6 border-t border-gray-700">

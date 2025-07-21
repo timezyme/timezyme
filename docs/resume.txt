@@ -1,0 +1,57 @@
+STEPHEN PASCO
+951-764-6213 | stephen.pasco@gmail.com
+
+PROFESSIONAL SUMMARY
+
+Seasoned software engineer with 21 years of experience in software development across entertainment, engineering, and finance sectors. Proficient in consumer product development and management, focusing on designing, architecting, and deploying secure, high-performance, scalable, and redundant applications in cloud-based environments.
+
+PROFESSIONAL EXPERIENCE
+
+GOLDMAN SACHS | Dallas, TX
+Senior Vice President, Software Engineer, Security Engineer | July 2015 - December 2020
+• Led a global software development team, overseeing design, coding, testing, automation, and deployment processes
+• Built Java services for monitoring software in a continuous integration pipeline, ensuring compliance and security
+• Conducted code reviews and provided technical support to remediate application and security issues
+
+WALT DISNEY COMPANY | Glendale, CA
+Senior Software Engineer, Security and Compliance Specialist | March 2012 - June 2015
+• Created Java web services and security solutions to detect code vulnerabilities using OWASP frameworks
+• Developed an Antlr4-based compiler to trace data through service endpoints, validating secure coding practices
+• Performed security assessments and penetration tests for web applications and mobile devices at Disney parks
+
+PARTICIPANT MEDIA | Beverly Hills, CA
+Software Engineer | January 2012
+• Developed full-stack web applications using Java, Spring, HTML/HTML5, CSS, and JavaScript
+• Employed SQL/NoSQL for relational and non-relational database development (Postgres, Mongo)
+
+METEORGAMES | Beverly Hills, CA
+Senior Game Engineer | September 2011 - October 2011
+• Built Java and Python microservices to integrate with front-end systems
+• Implemented Agile methodology and Scrum software development processes
+
+24-HOUR FITNESS | Carlsbad, CA
+Senior Programming Analyst | February 2011 - August 2011
+• Created Java full-stack web applications for back-office club membership management
+• Maintained hardware systems, including software updates for thumbprint registration check-in devices
+
+QUALCOMM INSTITUTE | La Jolla, CA
+Programming Analyst | March 2010 - February 2011
+• Developed Java and Python RESTful services, interacting with downstream systems using JSON
+• Utilized RabbitMQ for message-driven application development
+
+WALT DISNEY INTERACTIVE MEDIA GROUP | Glendale, CA
+Senior Software Engineer | November 2006 - March 2010
+• Created full-stack web applications using Java, Spring, HTML/HTML5, Angular, CSS, JavaScript, and Bootstrap for Disney parks and resort web properties
+
+QUALCOMM INSTITUTE | La Jolla, CA
+Senior Development Engineer | October 2004 - November 2006
+• Built service-oriented applications within event-based and message-oriented architectures
+
+WALT DISNEY INTERNET GROUP | Glendale, CA
+Senior Software Engineer | March 2001 - September 2004
+• Developed Java full-stack web applications for Disney Park and resort web properties
+
+EDUCATION
+Harvard University | Bachelor of Liberal Arts (ALB) in Extension Studies
+Field of Study: Computer Science and Artificial Intelligence
+Expected Graduation: Fall 2024
