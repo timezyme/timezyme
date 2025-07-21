@@ -240,6 +240,71 @@ definePageMeta({
               TimeZyme is building that future, one Zyme at a time.
             </p>
           </div>
+
+          <!-- Founder Section -->
+          <div class="mt-20 border-t border-gray-800 pt-20">
+            <h2 class="text-3xl font-bold text-center mb-12 gradient-text">
+              Meet the Founder
+            </h2>
+
+            <div class="bg-gray-800/30 rounded-lg p-8 max-w-4xl mx-auto">
+              <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                <!-- Photo -->
+                <div class="flex-shrink-0">
+                  <img
+                    src="/images/team/stephen-pasco.png"
+                    alt="Stephen Pasco - Founder & CEO of TimeZyme"
+                    class="w-48 h-48 rounded-full object-cover border-4 border-cyan-500/20"
+                  >
+                </div>
+
+                <!-- Bio Content -->
+                <div class="flex-1 text-center md:text-left">
+                  <h3 class="text-2xl font-bold text-white mb-2">
+                    Stephen Pasco
+                  </h3>
+                  <p class="text-cyan-400 font-semibold mb-4">
+                    Founder & CEO
+                  </p>
+
+                  <!-- LinkedIn Button -->
+                  <a
+                    href="https://www.linkedin.com/in/stephenpasco/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors mb-6"
+                  >
+                    <UIcon
+                      name="i-mdi-linkedin"
+                      class="text-xl"
+                    />
+                    <span>Connect on LinkedIn</span>
+                  </a>
+
+                  <p class="text-gray-300 mb-4">
+                    Stephen is a seasoned technology entrepreneur with over 20 years of experience building innovative software solutions. His passion for transforming how people interact with information led to the creation of TimeZyme.
+                  </p>
+
+                  <p class="text-gray-300 mb-4">
+                    Prior to TimeZyme, Stephen founded and led multiple successful ventures in enterprise software, AI/ML applications, and knowledge management systems. He brings deep expertise in document processing, natural language understanding, and building scalable SaaS platforms.
+                  </p>
+
+                  <p class="text-gray-300">
+                    Stephen holds strong technical expertise in full-stack development, cloud architecture, and artificial intelligence. He's driven by the vision of making complex knowledge universally accessible and actionable for professionals across all industries.
+                  </p>
+
+                  <div class="mt-6 pt-6 border-t border-gray-700">
+                    <p class="text-sm text-gray-400 italic">
+                      "Every professional deserves tools that respect their intelligence while amplifying their capabilities. TimeZyme isn't just about reading faster—it's about understanding deeper and connecting insights that were previously invisible."
+                    </p>
+                    <p class="text-sm text-gray-500 mt-2">
+                      — Stephen Pasco, Founder & CEO
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="text-center mt-12 space-x-4">

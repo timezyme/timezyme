@@ -12,6 +12,11 @@ const isDashboardRoute = computed(() => route.path.startsWith('/dashboard'))
 
 const links = computed(() => ([
   {
+    icon: 'i-lucide-info',
+    label: t('general.links.about') || 'About',
+    to: '/about',
+  },
+  {
     icon: 'i-lucide-book',
     label: t('general.links.docs'),
     to: '/docs',

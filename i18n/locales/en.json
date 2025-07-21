@@ -17,6 +17,7 @@
       }
     },
     "links": {
+      "about": "About",
       "faq": "FAQ",
       "docs": "Docs",
       "blog": "Blog",
