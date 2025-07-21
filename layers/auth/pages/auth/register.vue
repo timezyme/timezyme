@@ -5,6 +5,7 @@ import * as z from 'zod'
 const { showErrorToast, showSuccessToast } = useAppToast()
 const logger = useLogger()
 const { t } = useI18n()
+const { csrf } = useCsrf()
 
 const title = computed(() => t('pages.register.title'))
 const description = computed(() => t('pages.register.description'))
@@ -57,7 +58,13 @@ async function onSubmit (payload: FormSubmitEvent<Schema>) {
   isLoading.value = true
 
   try {
-    await $fetch('/api/auth/register', { body: payload.data, method: 'POST' })
+    await $fetch('/api/auth/register', {
+      body: payload.data,
+      headers: {
+        'x-csrf-token': csrf,
+      },
+      method: 'POST',
+    })
 
     showSuccessToast({ title: t('components.auth.toast.signupSuccess.label') })
 

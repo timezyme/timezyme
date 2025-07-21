@@ -20,7 +20,6 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   csurf: {
-    // excludedUrls option might not be supported, we'll handle it differently
     addCsrfTokenToEventCtx: true,
     cookie: {
       httpOnly: true,
@@ -33,6 +32,7 @@ export default defineNuxtConfig({
     headerName: 'x-csrf-token',
     https: process.env.NODE_ENV === 'production',
     methodsToProtect: ['POST', 'PUT', 'PATCH'],
+    // OAuth callbacks are GET requests and not protected by default
   },
 
   devServer: {

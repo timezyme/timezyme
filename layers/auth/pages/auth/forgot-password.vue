@@ -15,6 +15,7 @@ const state = reactive({
 const { showErrorToast, showSuccessToast } = useAppToast()
 const logger = useLogger()
 const { t } = useI18n()
+const { csrf } = useCsrf()
 
 const title = computed(() => t('pages.forgotPassword.title'))
 const description = computed(() => t('pages.forgotPassword.description'))
@@ -27,6 +28,9 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
   try {
     await $fetch('/api/auth/reset-password', {
       body: event.data,
+      headers: {
+        'x-csrf-token': csrf,
+      },
       method: 'POST',
     })
 
