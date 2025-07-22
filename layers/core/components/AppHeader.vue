@@ -7,41 +7,50 @@ const navigation = inject<Ref<Array<ContentNavigationItem>>>('navigationDocs')
 const { t } = useI18n()
 const { loggedIn } = useUserSession()
 const route = useRoute()
+const { isEnabled: isAuthEnabled } = useAuthFeature()
 
 const isDashboardRoute = computed(() => route.path.startsWith('/dashboard'))
 
-const links = computed(() => ([
-  {
-    icon: 'i-lucide-info',
-    label: t('general.links.about') || 'About',
-    to: '/about',
-  },
-  {
-    icon: 'i-lucide-sparkles',
-    label: 'Product Story',
-    to: '/story',
-  },
-  {
-    icon: 'i-lucide-book',
-    label: t('general.links.docs'),
-    to: '/docs',
-  },
-  {
-    icon: 'i-lucide-shield-question',
-    label: t('general.links.faq'),
-    to: '/faq',
-  },
-  {
-    icon: 'i-lucide-credit-card',
-    label: t('general.links.pricing'),
-    to: '/pricing',
-  },
-  {
+const links = computed(() => {
+  const baseLinks = [
+    {
+      icon: 'i-lucide-info',
+      label: t('general.links.about') || 'About',
+      to: '/about',
+    },
+    {
+      icon: 'i-lucide-sparkles',
+      label: 'Product Story',
+      to: '/story',
+    },
+    {
+      icon: 'i-lucide-book',
+      label: t('general.links.docs'),
+      to: '/docs',
+    },
+    {
+      icon: 'i-lucide-shield-question',
+      label: t('general.links.faq'),
+      to: '/faq',
+    },
+  ]
+
+  if (isAuthEnabled.value) {
+    baseLinks.push({
+      icon: 'i-lucide-credit-card',
+      label: t('general.links.pricing'),
+      to: '/pricing',
+    })
+  }
+
+  baseLinks.push({
     icon: 'i-lucide-mail',
     label: t('general.links.contact'),
     to: '/contact',
-  },
-]))
+  })
+
+  return baseLinks
+})
 const items = computed(() => links.value.map(({ icon, ...link }) => link))
 </script>
 
@@ -70,7 +79,7 @@ const items = computed(() => links.value.map(({ icon, ...link }) => link))
         <UContentSearchButton />
       </UTooltip>
       <UColorModeButton />
-      <AuthState>
+      <AuthState v-if="isAuthEnabled">
         <UButton
           v-if="loggedIn && !isDashboardRoute"
           to="/dashboard"
@@ -110,7 +119,7 @@ const items = computed(() => links.value.map(({ icon, ...link }) => link))
         class="mt-4 mb-6"
       />
       <div class="flex flex-col space-y-4">
-        <AuthState>
+        <AuthState v-if="isAuthEnabled">
           <UButton
             v-if="loggedIn && !isDashboardRoute"
             to="/dashboard"

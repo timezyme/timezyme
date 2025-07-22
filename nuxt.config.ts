@@ -206,6 +206,7 @@ export default defineNuxtConfig({
     },
     public: {
       adminDemoModeEnabled: process.env.NUXT_PUBLIC_ADMIN_DEMO_MODE_ENABLED === 'true',
+      authEnabled: process.env.NUXT_PUBLIC_AUTH_ENABLED !== 'false',
       baseUrl: process.env.NUXT_PUBLIC_BASE_URL,
     },
   },

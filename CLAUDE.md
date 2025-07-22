@@ -30,13 +30,12 @@ If ANY tests fail, you MUST fix the issues before considering the task complete.
 
 ## Project Overview
 
-This is a Nuxt 4 Starter Kit for building SaaS applications. It uses a layered architecture with modular features that can be enabled/disabled as needed.
+This is a **Nuxt 4** app for building the TimeZyme SaaS application. TimeZyme docs can be found here: /doc/TimeZyme-*. The app uses a layered architecture with modular features that can be enabled/disabled as needed.
 
-### Nuxt 4 Upgrade Notes
-- Successfully upgraded from Nuxt 3 to Nuxt 4
-- Using `compatibilityVersion: 4` in nuxt.config.ts for Nuxt 4 directory structure
-- All layers and modules are compatible with Nuxt 4
+### Important: This project uses Nuxt 4
+- This project is built with **Nuxt 4**, not Nuxt 3
 - TypeScript support has been enhanced with proper type definitions
+- When searching for documentation or solutions, ensure you're looking at Nuxt 4 specific resources
 
 ## Essential Commands
 
@@ -94,16 +93,15 @@ The application uses Nuxt layers for modular functionality. Each layer is in `ap
 - **payment**: Subscription management with Polar
 - **docs**: Documentation system using Nuxt Content
 - **blog**: Blog functionality with Nuxt Content
-- **testimonials**: Customer testimonials feature
 - **waitlist**: Early access signup system
 
 ### Key Technologies
-- **Framework**: Nuxt 4 with Vue 3
-- **Frontend**: Nuxt UI Pro, UnoCSS/Tailwind
+- **Framework**: Nuxt 4 (NOT Nuxt 3) with Vue 3
+- **Frontend**: Nuxt UI Pro, TailwindCSS 4 (NOT UnoCSS)
 - **Backend**: Nitro server, H3 utilities
 - **Database**: SQLite with Drizzle ORM (via NuxtHub)
 - **Authentication**: nuxt-auth-utils with session management
-- **Deployment**: NuxtHub (Cloudflare Pages + Workers)
+- **Deployment**: NuxtHub (Cloudflare Workers)
 
 ### Important Files & Directories
 - `nuxt.config.ts`: Main configuration extending all layers
@@ -118,7 +116,7 @@ The application uses Nuxt layers for modular functionality. Each layer is in `ap
 ### Environment Setup
 Required environment variables are validated in `validate-env.ts`. Key variables:
 - OAuth credentials: `NUXT_OAUTH_GITHUB_*`, `NUXT_OAUTH_GOOGLE_*`
-- Email provider: `NUXT_PRIVATE_EMAIL_*` (Resend or Plunk)
+- Email provider: `NUXT_PRIVATE_EMAIL_*` (Resend)
 - Payment: `NUXT_PRIVATE_POLAR_*`
 - Security: `NUXT_SESSION_PASSWORD` (32+ characters)
 - General: `NUXT_PUBLIC_BASE_URL`
