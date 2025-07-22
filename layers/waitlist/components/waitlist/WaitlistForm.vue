@@ -24,7 +24,7 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
   isLoading.value = true
 
   try {
-    await $fetch('/api/waitlist/subscribe', {
+    const response = await $fetch('/api/waitlist/subscribe', {
       body: {
         email: event.data.email,
         website: event.data.website, // Include honeypot
@@ -34,6 +34,9 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
       },
       method: 'POST',
     })
+
+    logger.info('Waitlist subscription successful', response)
+
     showSuccessToast({
       description: t('components.waitlistForm.toast.subscribe.success.description'),
       title: t('components.waitlistForm.toast.subscribe.success.title'),

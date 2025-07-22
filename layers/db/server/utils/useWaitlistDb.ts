@@ -1,5 +1,6 @@
 import { desc, eq } from 'drizzle-orm'
 
+import { tables, useDB } from './db'
 import type { InsertWaitlist } from './schema'
 
 const LOGGER_PREFIX = '[useWaitlistDb]:'
