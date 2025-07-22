@@ -21,7 +21,7 @@ We collect information to provide, maintain, and improve our Services. The types
 
 2.1. Information You Provide to Us
 
-    Account Information: When you create a TimeZyme account, we collect information such as your name, email address, and password. For paid subscriptions, we collect payment information, which is processed by our third-party payment processors (e.g., Stripe). We do not store your full credit card details.
+    Account Information: When you create a TimeZyme account, we collect information such as your name, email address, and password. For paid subscriptions, we collect payment information, which is processed by our third-party payment processors (e.g., Polar). We do not store your full credit card details.
 
     Your Input: We collect the documents, text, and any other content you upload, submit, or otherwise provide to the Services to be transformed into Zymes ("Input").
 

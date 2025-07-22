@@ -93,7 +93,7 @@ const effectiveDate = 'July 19, 2025'
                       <p class="font-medium mb-2">
                         Account Information
                       </p>
-                      <p>When you create a TimeZyme account, we collect information such as your name, email address, and password. For paid subscriptions, we collect payment information, which is processed by our third-party payment processors (e.g., Stripe). We do not store your full credit card details.</p>
+                      <p>When you create a TimeZyme account, we collect information such as your name, email address, and password. For paid subscriptions, we collect payment information, which is processed by our third-party payment processors (e.g., Polar). We do not store your full credit card details.</p>
                     </div>
                     <div>
                       <p class="font-medium mb-2">
