@@ -33,13 +33,24 @@ definePageMeta({
             <p class="text-gray-300 mb-4">
               Learn the fundamentals of TimeZyme and how to create your first visual story.
             </p>
+            <div class="mt-6 mb-4 text-sm text-gray-400">
+              <p class="font-semibold mb-2">
+                What's Coming:
+              </p>
+              <ul class="list-disc list-inside space-y-1">
+                <li>How to prepare your documents for optimal Zyme generation</li>
+                <li>Understanding the L0-L2 layered structure</li>
+                <li>Your first Zyme: Step-by-step walkthrough</li>
+                <li>Common pitfalls and how to avoid them</li>
+              </ul>
+            </div>
             <UButton
               variant="ghost"
               color="primary"
               icon="i-lucide-arrow-right"
               trailing
             >
-              Read More
+              Coming soon
             </UButton>
           </div>
 
@@ -50,13 +61,24 @@ definePageMeta({
             <p class="text-gray-300 mb-4">
               Discover advanced features and techniques to create more engaging content.
             </p>
+            <div class="mt-6 mb-4 text-sm text-gray-400">
+              <p class="font-semibold mb-2">
+                What's Coming:
+              </p>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Navigating the knowledge graph effectively</li>
+                <li>Cross-document connections and multi-hop exploration</li>
+                <li>Customizing Zyme generation for different document types</li>
+                <li>Advanced search and filtering techniques</li>
+              </ul>
+            </div>
             <UButton
               variant="ghost"
               color="primary"
               icon="i-lucide-arrow-right"
               trailing
             >
-              Read More
+              Coming soon
             </UButton>
           </div>
 
@@ -67,18 +89,49 @@ definePageMeta({
             <p class="text-gray-300 mb-4">
               Learn from the experts and follow industry best practices for visual storytelling.
             </p>
+            <div class="mt-6 mb-4 text-sm text-gray-400">
+              <p class="font-semibold mb-2">
+                What's Coming:
+              </p>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Maximizing comprehension while saving time</li>
+                <li>Validating and trusting Zyme accuracy</li>
+                <li>Building your personal knowledge graph</li>
+                <li>Collaboration and sharing strategies</li>
+              </ul>
+            </div>
             <UButton
               variant="ghost"
               color="primary"
               icon="i-lucide-arrow-right"
               trailing
             >
-              Read More
+              Coming soon
             </UButton>
           </div>
         </div>
 
-        <div class="text-center mt-12">
+        <div class="text-center mt-16 space-y-6">
+          <div class="bg-cyan-500/10 rounded-lg p-8 border border-cyan-500/20 max-w-lg mx-auto">
+            <div class="space-y-4">
+              <div class="flex items-center justify-center gap-2">
+                <UIcon
+                  name="i-lucide-mail"
+                  class="text-2xl text-cyan-400"
+                />
+                <h3 class="text-xl font-semibold text-white">
+                  Get notified when the playbook is ready
+                </h3>
+              </div>
+              <p class="text-gray-400">
+                Be the first to know when our comprehensive TimeZyme playbook launches.
+              </p>
+            </div>
+            <div class="mt-6 flex justify-center">
+              <WaitlistForm />
+            </div>
+          </div>
+
           <UButton
             to="/"
             variant="soft"
