@@ -111,27 +111,7 @@ definePageMeta({
           </div>
         </div>
 
-        <div class="text-center mt-16 space-y-6">
-          <div class="bg-cyan-500/10 rounded-lg p-8 border border-cyan-500/20 max-w-lg mx-auto">
-            <div class="space-y-4">
-              <div class="flex items-center justify-center gap-2">
-                <UIcon
-                  name="i-lucide-mail"
-                  class="text-2xl text-cyan-400"
-                />
-                <h3 class="text-xl font-semibold text-white">
-                  Get notified when the playbook is ready
-                </h3>
-              </div>
-              <p class="text-gray-400">
-                Be the first to know when our comprehensive TimeZyme playbook launches.
-              </p>
-            </div>
-            <div class="mt-6 flex justify-center">
-              <WaitlistForm />
-            </div>
-          </div>
-
+        <div class="text-center mt-16">
           <UButton
             to="/"
             variant="soft"
