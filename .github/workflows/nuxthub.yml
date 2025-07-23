@@ -5,6 +5,9 @@ jobs:
   deploy:
     name: "Deploy to NuxtHub"
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
+      url: ${{ steps.deploy.outputs.deployment-url }}
     permissions:
       contents: read
       id-token: write
@@ -42,7 +45,19 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-      - name: Build & Deploy to NuxtHub
-        uses: nuxt-hub/action@v2
+      - name: Build application
+        run: |
+          export NODE_OPTIONS=--max_old_space_size=8192
+          pnpm build
+        env:
+          NUXT_UI_PRO_LICENSE: ${{ secrets.NUXT_UI_PRO_LICENSE }}
+          NUXT_PRIVATE_POLAR_ACCESS_TOKEN: ${{ secrets.NUXT_PRIVATE_POLAR_ACCESS_TOKEN }}
+          NUXT_PRIVATE_POLAR_ORGANIZATION_ID: ${{ secrets.NUXT_PRIVATE_POLAR_ORGANIZATION_ID }}
+          NUXT_PRIVATE_POLAR_SERVER: ${{ secrets.NUXT_PRIVATE_POLAR_SERVER }}
+          NUXT_PRIVATE_POLAR_WEBHOOK_SECRET: ${{ secrets.NUXT_PRIVATE_POLAR_WEBHOOK_SECRET }}
+
+      - name: Deploy to NuxtHub
+        uses: nuxt-hub/action@v1
+        id: deploy
         with:
           project-key: ${{ secrets.NUXT_HUB_PROJECT_KEY }}
