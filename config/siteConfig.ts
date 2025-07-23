@@ -1,7 +1,7 @@
 export const siteConfig = {
   description: 'TimeZyme transforms any document into interactive visual stories.',
   domain: 'timezyme.com',
-  logoUrl: 'https://timezyme.com/images/logo/logo-light.png',
+  logoUrl: 'https://timezyme.com/images/logo/just-logo.png',
   logoWithTextUrl: 'https://timezyme.com/images/logo/logo-light.png',
   name: 'TimeZyme',
   socialMedia: {
