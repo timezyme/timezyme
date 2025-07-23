@@ -74,9 +74,13 @@ export function useWaitlistDb () {
 
   const updateItem = async (item: InsertWaitlist) => {
     try {
+      if (!item.id) {
+        throw new Error('Item ID is required for update')
+      }
       const record = await useDB()
         .update(tables.waitlist)
         .set({ ...item })
+        .where(eq(tables.waitlist.id, item.id))
         .returning()
         .get()
       return record
