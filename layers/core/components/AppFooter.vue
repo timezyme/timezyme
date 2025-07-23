@@ -23,10 +23,7 @@ const companyLinks: Array<FooterLink> = [
     label: 'About us',
     to: '/about',
   },
-  {
-    label: 'Careers',
-    to: '/careers',
-  },
+
   {
     label: 'Terms of service',
     to: '/terms',
