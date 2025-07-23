@@ -28,7 +28,8 @@ export default defineNuxtConfig({
       secure: process.env.NODE_ENV === 'production',
     },
     cookieKey: 'csrf',
-    enabled: true,
+    // Disable CSRF during build/prerendering
+    enabled: process.env.NUXT_PRERENDER !== 'true',
     headerName: 'x-csrf-token',
     https: process.env.NODE_ENV === 'production',
     methodsToProtect: ['POST', 'PUT', 'PATCH'],
