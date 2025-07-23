@@ -9,10 +9,6 @@ interface FooterLink {
 
 const quickLinks: Array<FooterLink> = [
   {
-    label: 'Blog',
-    to: '/blog',
-  },
-  {
     label: 'Help Center',
     to: '/help',
   },
