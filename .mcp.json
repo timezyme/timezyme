@@ -1,17 +1,5 @@
 {
   "mcpServers": {
-    "supabase": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@supabase/mcp-server-supabase@latest",
-        "--read-only",
-        "--project-ref=TimeZyme"
-      ],
-      "env": {
-        "SUPABASE_ACCESS_TOKEN": "sbp_a4c4b37478b830f8151d5c90858d271c7081f7f6"
-      }
-    },
     "sequentialthinking": {
       "command": "docker",
       "args": ["run", "-i", "--rm", "mcp/sequentialthinking"]
@@ -45,7 +33,7 @@
         "mcp",
         "start",
         "--access-token",
-        "..."
+        "polar_oat_PqTPxESN1JVMRNTFW74TDKaUM4sgVSHrxe5Hj0KlJRe"
       ]
     },
     "Context7": {
@@ -53,11 +41,36 @@
       "args": ["mcp-remote", "https://mcp.context7.com/sse"]
     },
     "resend": {
-      "command": "node",
-      "args": ["ABSOLUTE_PATH_TO_MCP_SEND_EMAIL_PROJECT/build/index.js"],
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "REPLY_TO_EMAIL_ADDRESSES",
+        "-e",
+        "SENDER_EMAIL_ADDRESS",
+        "-e",
+        "RESEND_API_KEY",
+        "mcp/resend"
+      ],
       "env": {
-        "RESEND_API_KEY": "YOUR_RESEND_API_KEY"
+        "REPLY_TO_EMAIL_ADDRESSES": "support@timezyme.com",
+        "SENDER_EMAIL_ADDRESS": "support@timezyme.com",
+        "RESEND_API_KEY": "re_QduiSZ7Z_DjwffQtGpYmk65xF1pPi5pDu"
       }
+    },
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--project",
+        "/Users/spasco/Projects/github-timezyme/timezyme"
+      ]
     }
   }
 }

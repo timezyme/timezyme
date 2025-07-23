@@ -31,3 +31,88 @@ logs
 /playwright/.cache/
 /app/e2e/.auth/
 /app/e2e/screenshots/
+
+# Cookie and authentication files
+cookies.txt
+admin-cookies.txt
+*.cookies.txt
+*-cookies.txt
+
+# Backup files
+backups/
+*.bak
+*.backup
+*.tmp
+*.swp
+*.swo
+
+# Database dumps and migrations (if they contain sensitive data)
+*.sql
+*.sqlite
+*.db
+
+# Log files
+dev.log
+*.log
+
+# Planning and documentation that might contain sensitive info
+planning/
+docs/resume.txt
+
+# Scripts that might contain credentials or sensitive operations
+scripts/*.mjs
+scripts/*.sh
+
+# Serena project files
+.serena/
+
+# Test results and reports
+test-results/
+playwright-report/
+
+# Any generated API files
+generated/
+
+# IDE and editor files
+.vscode/
+*.code-workspace
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux system files
+*~
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+
+# NPM/PNPM debug logs
+npm-debug.log*
+pnpm-debug.log*
+pnpm-error.log*
+
+# Certificates and keys (just in case)
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
+
+# Environment files (already included but being explicit)
+.env
+.env.*
+!.env.example
+.env.local
+.env.production
+.env.development
+

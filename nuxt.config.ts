@@ -145,7 +145,6 @@ export default defineNuxtConfig({
       openAPI: true,
     },
     rollupConfig: {
-      // @ts-expect-error - Rollup plugin type mismatch between versions
       plugins: [vue()], // see https://vuemail.net/getting-started/nuxt-nitro
     },
   },
