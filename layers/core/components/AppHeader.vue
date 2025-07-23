@@ -78,7 +78,7 @@ const items = computed(() => links.value.map(({ icon, ...link }) => link))
       >
         <UContentSearchButton />
       </UTooltip>
-      <UColorModeButton />
+
       <AuthState v-if="isAuthEnabled">
         <UButton
           v-if="loggedIn && !isDashboardRoute"

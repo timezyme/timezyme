@@ -11,6 +11,8 @@ const REDIRECT_INTRUDERS_GIF = 'https://i.imgur.com/1Ia9tTG.gif'
 export default defineNuxtConfig({
 
   colorMode: {
+    classSuffix: '',
+    dataValue: 'theme',
     fallback: 'dark',
     preference: 'dark',
   },

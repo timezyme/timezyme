@@ -157,7 +157,6 @@ const socialLinks = [
           {{ $t('general.footer.copyright', { year: new Date().getFullYear() }) }}
         </p>
         <div class="flex items-center gap-4">
-          <UColorModeButton size="sm" />
           <UButton
             icon="i-lucide-arrow-up"
             color="neutral"
