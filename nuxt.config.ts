@@ -28,12 +28,11 @@ export default defineNuxtConfig({
       secure: process.env.NODE_ENV === 'production',
     },
     cookieKey: 'csrf',
-    // Disable CSRF during build/prerendering
-    enabled: process.env.NUXT_PRERENDER !== 'true',
+    // nuxt-csurf doesn't support prerendering, enable it in runtime only
+    enabled: true,
     headerName: 'x-csrf-token',
     https: process.env.NODE_ENV === 'production',
     methodsToProtect: ['POST', 'PUT', 'PATCH'],
-    // OAuth callbacks are GET requests and not protected by default
   },
 
   devServer: {
@@ -173,6 +172,7 @@ export default defineNuxtConfig({
     '/legal/**': { prerender: true },
     '/pricing': { prerender: true },
     '/testimonials': { prerender: true },
+    '/llms.txt': { prerender: false }, // Dynamic route that makes POST requests
     '/api/**': { cors: true },
     '/api/waitlist/subscribe': {
       cors: true,
