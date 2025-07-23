@@ -162,10 +162,10 @@ export default defineNuxtConfig({
 
   routeRules: {
     /* eslint-disable perfectionist/sort-objects */
-    '/': { prerender: true },
+    '/': { prerender: false }, // Must be dynamic for CSRF to work with waitlist form
     '/blog': { prerender: true }, // individual blog posts are pre-rendered inside /blog component
     '/changelog': { prerender: true },
-    '/contact': { prerender: true },
+    '/contact': { prerender: false }, // Must be dynamic for CSRF to work with contact form
     '/dashboard/**': { ssr: false },
     '/docs': { prerender: true }, // individual docs pages are pre-rendered inside /docs component
     '/faq': { prerender: true },

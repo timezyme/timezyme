@@ -13,7 +13,7 @@ type Schema = z.output<typeof schema>
 const { showErrorToast, showSuccessToast } = useAppToast()
 const { t } = useI18n()
 const logger = useLogger()
-const { $csrfFetch } = useNuxtApp()
+const { csrf, headerName } = useCsrf()
 
 const state = reactive({
   email: '',
@@ -29,8 +29,11 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
   isSending.value = true
 
   try {
-    await $csrfFetch('/api/contact', {
+    await $fetch('/api/contact', {
       body: event.data,
+      headers: {
+        [headerName]: csrf,
+      },
       method: 'POST',
     })
     showSuccessToast({ description: t('pages.contact.toast.success.description'), title: t('pages.contact.toast.success.title') })

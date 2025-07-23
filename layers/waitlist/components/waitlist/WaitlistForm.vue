@@ -11,7 +11,7 @@ type Schema = z.output<typeof schema>
 const { showErrorToast, showSuccessToast } = useAppToast()
 const { t } = useI18n()
 const logger = useLogger()
-const { $csrfFetch } = useNuxtApp()
+const { csrf, headerName } = useCsrf()
 
 const state = reactive({
   email: '',
@@ -24,10 +24,13 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
   isLoading.value = true
 
   try {
-    const response = await $csrfFetch('/api/waitlist/subscribe', {
+    const response = await $fetch('/api/waitlist/subscribe', {
       body: {
         email: event.data.email,
         website: event.data.website, // Include honeypot
+      },
+      headers: {
+        [headerName]: csrf,
       },
       method: 'POST',
     })
