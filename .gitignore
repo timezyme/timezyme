@@ -40,6 +40,7 @@ admin-cookies.txt
 
 # Backup files
 backups/
+/backups/
 *.bak
 *.backup
 *.tmp
@@ -108,10 +109,14 @@ pnpm-error.log*
 *.p12
 *.pfx
 
+# Claude Code configuration and memories
+CLAUDE.md
+.claude/*
+
 # Environment files (already included but being explicit)
 .env
 .env.*
-!.env.example
+.env.example
 .env.local
 .env.production
 .env.development
