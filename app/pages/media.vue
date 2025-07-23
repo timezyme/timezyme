@@ -65,123 +65,28 @@ definePageMeta({
           </div>
         </div>
 
-        <div class="space-y-8">
-          <div class="bg-gradient-to-r from-cyan-500/10 to-cyan-600/10 rounded-lg p-8 border border-cyan-500/20">
-            <h2 class="text-2xl font-bold mb-4">
-              Brand Assets
-            </h2>
-            <p class="text-gray-300 mb-6">
-              Download our official logos, brand guidelines, and press kit for use in your publications.
-            </p>
-            <UButton
-              color="primary"
-              variant="soft"
-              icon="i-lucide-download"
-            >
-              Download Press Kit
-            </UButton>
-          </div>
-
-          <div>
-            <h2 class="text-2xl font-bold mb-6">
-              Recent Press
-            </h2>
-            <div class="space-y-4">
-              <div class="border-l-2 border-cyan-500 pl-4">
-                <p class="text-sm text-gray-400 mb-1">
-                  TechCrunch - January 2025
-                </p>
-                <h3 class="text-lg font-semibold mb-2">
-                  "TimeZyme Revolutionizes Document Reading with Visual AI"
-                </h3>
-                <UButton
-                  variant="ghost"
-                  color="primary"
-                  size="sm"
-                  icon="i-lucide-external-link"
-                  trailing
-                >
-                  Read Article
-                </UButton>
-              </div>
-
-              <div class="border-l-2 border-cyan-500 pl-4">
-                <p class="text-sm text-gray-400 mb-1">
-                  VentureBeat - December 2024
-                </p>
-                <h3 class="text-lg font-semibold mb-2">
-                  "How TimeZyme is Making Reading 10x Faster"
-                </h3>
-                <UButton
-                  variant="ghost"
-                  color="primary"
-                  size="sm"
-                  icon="i-lucide-external-link"
-                  trailing
-                >
-                  Read Article
-                </UButton>
-              </div>
-
-              <div class="border-l-2 border-cyan-500 pl-4">
-                <p class="text-sm text-gray-400 mb-1">
-                  The Verge - November 2024
-                </p>
-                <h3 class="text-lg font-semibold mb-2">
-                  "The Future of Reading is Visual: Inside TimeZyme"
-                </h3>
-                <UButton
-                  variant="ghost"
-                  color="primary"
-                  size="sm"
-                  icon="i-lucide-external-link"
-                  trailing
-                >
-                  Read Article
-                </UButton>
-              </div>
+        <div class="bg-gray-800/30 rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-4">
+            Quick Facts
+          </h3>
+          <dl class="space-y-3">
+            <div class="flex justify-between">
+              <dt class="text-gray-400">
+                Founded
+              </dt>
+              <dd class="text-white font-medium">
+                2024
+              </dd>
             </div>
-          </div>
-
-          <div class="bg-gray-800/30 rounded-lg p-6">
-            <h3 class="text-xl font-bold mb-4">
-              Quick Facts
-            </h3>
-            <dl class="space-y-3">
-              <div class="flex justify-between">
-                <dt class="text-gray-400">
-                  Founded
-                </dt>
-                <dd class="text-white font-medium">
-                  2024
-                </dd>
-              </div>
-              <div class="flex justify-between">
-                <dt class="text-gray-400">
-                  Headquarters
-                </dt>
-                <dd class="text-white font-medium">
-                  San Francisco, CA
-                </dd>
-              </div>
-              <div class="flex justify-between">
-                <dt class="text-gray-400">
-                  Employees
-                </dt>
-                <dd class="text-white font-medium">
-                  50+
-                </dd>
-              </div>
-              <div class="flex justify-between">
-                <dt class="text-gray-400">
-                  Users
-                </dt>
-                <dd class="text-white font-medium">
-                  100,000+
-                </dd>
-              </div>
-            </dl>
-          </div>
+            <div class="flex justify-between">
+              <dt class="text-gray-400">
+                Headquarters
+              </dt>
+              <dd class="text-white font-medium">
+                Plano, TX
+              </dd>
+            </div>
+          </dl>
         </div>
 
         <div class="text-center mt-12">
