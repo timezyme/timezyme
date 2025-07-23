@@ -71,7 +71,7 @@ const title = computed(() => props.title.slice(0, 60))
       {{ siteConfig.domain }}
     </p>
     <img
-      src="/logo.png"
+      src="/images/logo/just-logo.png"
       :alt="siteConfig.name"
       class="top-60 right-40 absolute h-[120px] w-[120px]"
     >
