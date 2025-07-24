@@ -2,7 +2,7 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 import { siteConfig } from '~~/config/siteConfig'
 
-const navigation = inject<Ref<Array<ContentNavigationItem>>>('navigationDocs')
+const navigation = inject<Ref<Array<ContentNavigationItem>>>('navigationDocs', ref([]))
 
 const { t } = useI18n()
 const { loggedIn } = useUserSession()

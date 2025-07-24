@@ -10,16 +10,22 @@ const searchTerm = ref('')
 const lang = computed(() => locales[locale.value].code)
 const dir = computed(() => locales[locale.value].dir)
 
-const { data: navigationDocs } = await useAsyncData('docsNavigation', () => queryCollectionNavigation('docs'), {
-  transform: data => data.find(item => item.path === '/docs')?.children || [],
-})
+const { data: navigationDocs } = await useAsyncData('docsNavigation', () => queryCollectionNavigation('docs'))
 const { data: contentNavigation } = await useAsyncData('contentNavigation', () => queryCollectionNavigation('content'))
 
 const { data: contentFiles } = useLazyAsyncData('contentSearch', () => queryCollectionSearchSections('content'), {
   server: false,
 })
 
-provide('navigationDocs', navigationDocs)
+// Provide just the children of the docs navigation (skip the root "Docs" item)
+const docsNavigationChildren = computed(() => {
+  if (navigationDocs.value?.length && navigationDocs.value[0]?.children) {
+    return navigationDocs.value[0].children
+  }
+  return navigationDocs.value || []
+})
+
+provide('navigationDocs', docsNavigationChildren)
 
 onMounted(async () => {
   const cookie = useCookie('cookie-consent')

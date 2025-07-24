@@ -21,22 +21,6 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  csurf: {
-    addCsrfTokenToEventCtx: true,
-    cookie: {
-      httpOnly: true,
-      path: '/',
-      sameSite: 'strict',
-      secure: process.env.NODE_ENV === 'production',
-    },
-    cookieKey: 'csrf',
-    // nuxt-csurf doesn't support prerendering, enable it in runtime only
-    enabled: true,
-    headerName: 'x-csrf-token',
-    https: process.env.NODE_ENV === 'production',
-    methodsToProtect: ['POST', 'PUT', 'PATCH'],
-  },
-
   devServer: {
     port: 9009,
   },
@@ -61,6 +45,7 @@ export default defineNuxtConfig({
     './layers/dashboard',
     './layers/payment',
     './layers/docs',
+    './layers/docs2',
     './layers/blog',
     './layers/testimonials',
     './layers/waitlist',
@@ -123,7 +108,6 @@ export default defineNuxtConfig({
     'nuxt-umami',
     '@nuxt/content',
     'nuxt-security',
-    'nuxt-csurf',
     '@nuxt/image',
     '@nuxt/fonts',
     'nuxt-llms',
@@ -221,8 +205,14 @@ export default defineNuxtConfig({
   },
 
   security: {
+    // Disable CSRF since we're using Cloudflare Turnstile for form protection
+    csrf: false,
     headers: {
       contentSecurityPolicy: {
+        'frame-src': [
+          '\'self\'',
+          'https://challenges.cloudflare.com', // For Turnstile iframe
+        ],
         'img-src': [
           '\'self\'',
           'data:',
@@ -234,6 +224,7 @@ export default defineNuxtConfig({
           '\'self\'',
           '\'unsafe-inline\'',
           '\'unsafe-eval\'',
+          'https://challenges.cloudflare.com', // For Turnstile
         ],
         'script-src-attr': [
           '\'self\'',

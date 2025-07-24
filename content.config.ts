@@ -3,6 +3,13 @@ import type { UserProps } from '@nuxt/ui-pro'
 import { asSitemapCollection } from '@nuxtjs/sitemap/content'
 
 const docsSchema = z.object({
+  navigation: z.object({
+    icon: z.string().optional(),
+    title: z.string().optional(),
+  }).optional(),
+})
+
+const docs2Schema = z.object({
   links: z.array(z.object({
     avatar: z.object({
       alt: z.string(),
@@ -12,10 +19,10 @@ const docsSchema = z.object({
     label: z.string(),
     target: z.string().optional(),
     to: z.string(),
-  })),
+  })).optional(),
   navigation: z.object({
     title: z.string().optional(),
-  }),
+  }).optional(),
 })
 
 const blogSchema = z.object({
@@ -61,6 +68,13 @@ export default defineContentConfig({
       asSitemapCollection({
         schema: docsSchema,
         source: 'docs/**',
+        type: 'page',
+      }),
+    ),
+    docs2: defineCollection(
+      asSitemapCollection({
+        schema: docs2Schema,
+        source: 'docs2/**',
         type: 'page',
       }),
     ),
