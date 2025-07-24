@@ -5,6 +5,7 @@ import EmailWrapper from '../Wrapper.vue'
 
 interface Props {
   email: string
+  logoUrl?: string
   message: string
   name: string
 }
@@ -12,7 +13,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <EmailWrapper>
+  <EmailWrapper :logo-url="logoUrl">
     <Heading>Contact Form Submission</Heading>
     <Hr />
     <Text class="text-base">

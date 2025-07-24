@@ -4,6 +4,12 @@ import { siteConfig } from '~~/config/siteConfig'
 
 import EmailLogo from './Logo.vue'
 
+interface Props {
+  logoUrl?: string
+}
+
+const props = defineProps<Props>()
+
 const tailwindConfig = {
   theme: {
     extend: {
@@ -35,7 +41,7 @@ const footnoteClasses = 'text-center text-[12px]'
       <Section>
         <Row>
           <Container class="border border-solid rounded-lg p-4 border-gray-300">
-            <EmailLogo />
+            <EmailLogo :logo-url="props.logoUrl" />
 
             <slot />
           </Container>

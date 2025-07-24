@@ -20,6 +20,7 @@ export function useEmail () {
     else {
       const html = await render(ContactTemplate, {
         email,
+        logoUrl: `${baseUrl}/images/logo/timzyme-logo-email.png`,
         message,
         name,
       }, { pretty: true })
@@ -60,6 +61,7 @@ export function useEmail () {
     const emailVerificationUrl = `${baseUrl}/api/waitlist/verify-email-token?token=${emailVerificationToken}`
     const html = await render(WaitlistConfirmationTemplate, {
       emailVerificationUrl,
+      logoUrl: `${baseUrl}/images/logo/timzyme-logo-email.png`,
     }, { pretty: true })
 
     if (import.meta.dev && !emailSendInDevMode) {

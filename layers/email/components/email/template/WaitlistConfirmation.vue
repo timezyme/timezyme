@@ -7,12 +7,13 @@ import EmailWrapper from '../Wrapper.vue'
 
 interface Props {
   emailVerificationUrl: string
+  logoUrl?: string
 }
 defineProps<Props>()
 </script>
 
 <template>
-  <EmailWrapper>
+  <EmailWrapper :logo-url="logoUrl">
     <Heading>Waitlist Confirmation</Heading>
     <Hr />
     <Text class="text-base">
