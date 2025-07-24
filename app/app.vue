@@ -11,9 +11,8 @@ const lang = computed(() => locales[locale.value].code)
 const dir = computed(() => locales[locale.value].dir)
 
 const { data: navigationDocs } = await useAsyncData('docsNavigation', () => queryCollectionNavigation('docs'))
-const { data: contentNavigation } = await useAsyncData('contentNavigation', () => queryCollectionNavigation('content'))
 
-const { data: contentFiles } = useLazyAsyncData('contentSearch', () => queryCollectionSearchSections('content'), {
+const { data: contentFiles } = useLazyAsyncData('contentSearch', () => queryCollectionSearchSections('docs'), {
   server: false,
 })
 
@@ -99,8 +98,9 @@ useSeoMeta({
     <ClientOnly>
       <LazyUContentSearch
         v-model:search-term="searchTerm"
+        :color-mode="false"
         :files="contentFiles"
-        :navigation="contentNavigation"
+        :navigation="navigationDocs"
         :fuse="{ resultLimit: 42 }"
       />
     </ClientOnly>
