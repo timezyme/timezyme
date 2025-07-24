@@ -307,7 +307,7 @@ definePageMeta({
           </div>
         </div>
 
-        <div class="text-center mt-12 space-x-4">
+        <div class="flex justify-center items-center gap-4 mt-12">
           <UButton
             to="/"
             variant="soft"

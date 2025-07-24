@@ -47,7 +47,7 @@ function dismiss () {
           <p class="text-sm text-gray-300">
             You're viewing documentation for TimeZyme's upcoming features. The platform is currently in development.
             <NuxtLink
-              to="/#waitlist"
+              to="/"
               class="text-cyan-400 hover:text-cyan-300 underline underline-offset-2 transition-colors"
             >
               Join our waitlist
