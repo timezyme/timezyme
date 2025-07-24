@@ -20,7 +20,10 @@ const navigation = inject<Ref<Array<ContentNavigationItem>>>('navigationDocs')
             </UPageAside>
           </template>
 
-          <slot />
+          <div>
+            <DocsComingSoonBanner />
+            <slot />
+          </div>
         </UPage>
       </UContainer>
     </UMain>
