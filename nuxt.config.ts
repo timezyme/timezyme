@@ -195,6 +195,7 @@ export default defineNuxtConfig({
       adminDemoModeEnabled: process.env.NUXT_PUBLIC_ADMIN_DEMO_MODE_ENABLED === 'true',
       authEnabled: process.env.NUXT_PUBLIC_AUTH_ENABLED !== 'false',
       baseUrl: process.env.NUXT_PUBLIC_BASE_URL,
+      previewMode: process.env.NUXT_PUBLIC_PREVIEW_MODE === 'true',
     },
     turnstile: {
       secretKey: process.env.NUXT_TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA', // Test secret for development

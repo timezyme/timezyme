@@ -1,15 +1,15 @@
-name: Preview Deployment
+name: PR Preview Deployment
 on:
   pull_request:
     types: [opened, synchronize, reopened]
     branches:
       - main
-      - develop
+      - preview
   workflow_dispatch:
 
 jobs:
   preview:
-    name: "Deploy Preview"
+    name: "Deploy PR Preview"
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -34,15 +34,19 @@ jobs:
       - name: Ensure NuxtHub module is installed
         run: pnpx nuxthub@latest ensure
 
-      - name: Build & Deploy Preview to NuxtHub
+      - name: Build & Deploy PR Preview to NuxtHub
         id: deploy
         uses: nuxt-hub/action@v2
+        with:
+          deploy-args: --preview
         env:
           NUXT_HUB_PROJECT_KEY: timezyme-revq
-          # Override environment variables for preview
-          NUXT_PUBLIC_BASE_URL: https://preview.timezyme.com
-          NUXT_PRIVATE_POLAR_SERVER: sandbox
+          # For PR previews, use sandbox settings for safety
+          NUXT_PUBLIC_BASE_URL: ${{ steps.deploy.outputs.deployment-url }}
+          NUXT_PUBLIC_AUTH_ENABLED: false
           NUXT_PUBLIC_ADMIN_DEMO_MODE_ENABLED: true
+          NUXT_PUBLIC_PREVIEW_MODE: true
+          NUXT_PRIVATE_POLAR_SERVER: sandbox
 
       - name: Comment PR with preview URL
         if: github.event_name == 'pull_request' && steps.deploy.outputs.url
@@ -52,16 +56,21 @@ jobs:
             const deploymentUrl = '${{ steps.deploy.outputs.url }}';
             const customDomain = 'https://preview.timezyme.com';
             
-            const output = `### 🚀 Preview Deployment Ready!
+            const output = `### 🚀 PR Preview Deployment Ready!
             
             Your preview deployment is available at:
-            - **Custom Domain**: ${customDomain} *(may take a few minutes to propagate)*
-            - **Direct URL**: ${deploymentUrl}
+            - **Preview URL**: ${deploymentUrl}
             
             **Commit**: \`${{ github.event.pull_request.head.sha || github.sha }}\`
             **Branch**: \`${{ github.event.pull_request.head.ref || github.ref_name }}\`
             
-            ⚠️ **Note**: This preview uses sandbox Polar credentials and demo mode is enabled.`;
+            ⚠️ **Note**: This is a temporary PR preview deployment with:
+            - Sandbox Polar credentials
+            - Demo mode enabled
+            - No authentication required
+            
+            For the stable preview environment with production settings, visit:
+            **https://preview.timezyme.com** (requires Cloudflare Access)`;
             
             // Find existing comment
             const { data: comments } = await github.rest.issues.listComments({

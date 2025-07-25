@@ -1,17 +1,20 @@
-name: Deploy to NuxtHub
+name: Preview Branch Deployment
 on:
   push:
     branches:
-      - main
+      - preview
   workflow_dispatch:
 
 jobs:
-  deploy:
-    name: "Deploy to NuxtHub"
+  deploy-preview:
+    name: "Deploy Preview Branch"
     runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
+    environment:
+      name: preview
+      url: https://preview.timezyme.com
 
     steps:
       - uses: actions/checkout@v4
@@ -31,7 +34,9 @@ jobs:
       - name: Ensure NuxtHub module is installed
         run: pnpx nuxthub@latest ensure
 
-      - name: Build & Deploy to NuxtHub
+      - name: Build & Deploy Preview to NuxtHub
         uses: nuxt-hub/action@v2
+        with:
+          deploy-args: --environment=preview
         env:
           NUXT_HUB_PROJECT_KEY: timezyme-revq
