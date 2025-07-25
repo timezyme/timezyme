@@ -89,6 +89,7 @@ useSeoMeta({
     :locale="locales[locale]"
     :toaster="appConfig.toaster as ToasterProps"
   >
+    <PreviewModeBanner />
     <NuxtLoadingIndicator color="#FC8907" />
 
     <NuxtLayout>

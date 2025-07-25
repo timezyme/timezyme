@@ -8,6 +8,7 @@ export const env = createEnv({
   client: {
     NUXT_PUBLIC_ADMIN_DEMO_MODE_ENABLED: z.boolean({ coerce: true }).optional(),
     NUXT_PUBLIC_BASE_URL: z.string().url(),
+    NUXT_PUBLIC_PREVIEW_MODE: z.boolean({ coerce: true }).optional(),
   },
   server: {
     NUXT_OAUTH_GITHUB_CLIENT_ID: z.string().min(10).optional(),
