@@ -31,5 +31,5 @@ jobs:
 
       - name: Build & Deploy to NuxtHub
         uses: nuxt-hub/action@v2
-        with:
-          project-key: timezyme-revq
+        env:
+          NUXT_HUB_PROJECT_KEY: timezyme-revq

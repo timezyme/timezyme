@@ -10,7 +10,7 @@ const isPreviewMode = config.public.previewMode || false
   >
     <div class="flex items-center justify-center gap-2">
       <UIcon name="i-lucide-eye" />
-      <span>Preview Mode - This is a protected development environment</span>
+      <span>Preview Mode - Protected development environment</span>
     </div>
   </div>
 </template>
