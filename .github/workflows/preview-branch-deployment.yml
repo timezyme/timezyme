@@ -33,7 +33,12 @@ jobs:
       - name: Ensure NuxtHub module is installed
         run: pnpx nuxthub@latest ensure
 
-      - name: Build & Deploy Preview to NuxtHub
+      - name: Build project
+        run: NUXT_UI_PRO_LICENSE=${{ secrets.NUXT_UI_PRO_LICENSE }} pnpm build
+        
+      - name: Deploy to NuxtHub
         uses: nuxt-hub/action@v2
+        with:
+          build: false
         env:
           NUXT_HUB_PROJECT_KEY: timezyme-revq
