@@ -12,9 +12,6 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    environment:
-      name: staging
-      url: https://preview.timezyme.com
 
     steps:
       - uses: actions/checkout@v4
