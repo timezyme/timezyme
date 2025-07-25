@@ -1,0 +1,93 @@
+name: Preview Deployment
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+jobs:
+  preview:
+    name: "Deploy Preview"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Ensure NuxtHub module is installed
+        run: pnpx nuxthub@latest ensure
+
+      - name: Build & Deploy Preview to NuxtHub
+        id: deploy
+        uses: nuxt-hub/action@v2
+        env:
+          NUXT_HUB_PROJECT_KEY: timezyme-revq
+          # Override environment variables for preview
+          NUXT_PUBLIC_BASE_URL: https://preview.timezyme.com
+          NUXT_PRIVATE_POLAR_SERVER: sandbox
+          NUXT_PUBLIC_ADMIN_DEMO_MODE_ENABLED: true
+
+      - name: Comment PR with preview URL
+        if: github.event_name == 'pull_request' && steps.deploy.outputs.url
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deploymentUrl = '${{ steps.deploy.outputs.url }}';
+            const customDomain = 'https://preview.timezyme.com';
+            
+            const output = `### 🚀 Preview Deployment Ready!
+            
+            Your preview deployment is available at:
+            - **Custom Domain**: ${customDomain} *(may take a few minutes to propagate)*
+            - **Direct URL**: ${deploymentUrl}
+            
+            **Commit**: \`${{ github.event.pull_request.head.sha || github.sha }}\`
+            **Branch**: \`${{ github.event.pull_request.head.ref || github.ref_name }}\`
+            
+            ⚠️ **Note**: This preview uses sandbox Polar credentials and demo mode is enabled.`;
+            
+            // Find existing comment
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number
+            });
+            
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('Preview Deployment Ready')
+            );
+            
+            // Update or create comment
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: output
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: output
+              });
+            }
