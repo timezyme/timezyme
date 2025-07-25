@@ -32,11 +32,13 @@ TimeZyme uses a two-tier preview system:
 
 ## Setup Instructions
 
-### 1. Configure Environment Variables in NuxtHub
+### 1. Create Custom Environment in NuxtHub
 
-Go to [NuxtHub Dashboard](https://admin.hub.nuxt.com) → Your Project → Settings → Environments → Preview
+Go to [NuxtHub Dashboard](https://admin.hub.nuxt.com) → Your Project → Settings → Environments
 
-Add the following environment variables:
+1. Create a new custom environment called "staging"
+2. Configure it to deploy from the "preview" branch
+3. Add the following environment variables:
 
 **Base Configuration**:
 - `NUXT_PUBLIC_BASE_URL`: `https://preview.timezyme.com`
@@ -95,21 +97,22 @@ Create a pull request → Automatic temporary preview with sandbox settings
 
 ## How It Works
 
-1. **NuxtHub Environments**: Preview environment variables are now managed directly in NuxtHub
-2. **Deployment Flag**: GitHub Actions uses `--environment=preview` to deploy to preview environment
-3. **Single Worker**: Both production and preview use the same Cloudflare Worker
-4. **Domain Routing**: preview.timezyme.com routes to the Worker with preview configuration
+1. **Custom Environment**: Uses a custom "staging" environment in NuxtHub (not the built-in preview)
+2. **Deployment Flag**: GitHub Actions uses `--env=staging` to deploy to staging environment
+3. **Single Worker**: Both production and staging use the same Cloudflare Worker
+4. **Domain Routing**: preview.timezyme.com routes to the Worker with staging configuration
 5. **Preview Detection**: App detects preview mode via URL or environment variable
 
 ## Environment Differences
 
-| Feature | Production | Preview | PR Preview |
-|---------|------------|---------|------------|
+| Feature | Production | Staging (Preview) | PR Preview |
+|---------|------------|------------------|------------|
 | URL | timezyme.com | preview.timezyme.com | *.workers.dev |
 | Branch | main | preview | any (PR) |
 | Auth | Disabled* | Enabled | Disabled |
 | Polar | Production | Production | Sandbox |
 | Database | Production | Production** | Production** |
+| Environment | production | staging | preview |
 
 \* Currently disabled in production  
 \** Shares production database (use caution)
@@ -140,9 +143,10 @@ Create a pull request → Automatic temporary preview with sandbox settings
 
 ## Important Notes
 
-1. **Database Sharing**: Preview uses production database. Be careful with data modifications.
-2. **Environment Variables**: Now managed directly in NuxtHub Dashboard under Environments → Preview.
-3. **Deployment**: Push to preview branch or run `./scripts/preview-deploy.sh` to deploy with new settings.
+1. **Database Sharing**: Staging uses production database. Be careful with data modifications.
+2. **Custom Environment**: Uses "staging" environment (not the built-in "preview") to allow environment variable configuration.
+3. **Environment Variables**: Managed in NuxtHub Dashboard under Environments → Staging.
+4. **Deployment**: Push to preview branch or run `./scripts/preview-deploy.sh` to deploy with new settings.
 
 ## Files Reference
 
