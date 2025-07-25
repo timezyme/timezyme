@@ -5,7 +5,6 @@ import * as z from 'zod'
 const { showErrorToast, showSuccessToast } = useAppToast()
 const { fetch: refreshSession } = useUserSession()
 const { t } = useI18n()
-const { csrf } = useCsrf()
 
 const title = computed(() => t('pages.login.title'))
 const description = computed(() => t('pages.login.description'))
@@ -54,9 +53,6 @@ async function loginWithPassword (email: string, password: string) {
       body: {
         email,
         password,
-      },
-      headers: {
-        'x-csrf-token': csrf,
       },
       method: 'POST',
     })

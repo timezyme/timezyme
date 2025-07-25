@@ -13,7 +13,10 @@ type Schema = z.output<typeof schema>
 const { showErrorToast, showSuccessToast } = useAppToast()
 const { t } = useI18n()
 const logger = useLogger()
-const { csrf, headerName } = useCsrf()
+
+// Turnstile
+const turnstileToken = ref<string>('')
+const turnstileRef = ref()
 
 const state = reactive({
   email: '',
@@ -22,17 +25,28 @@ const state = reactive({
 })
 
 const isSending = ref(false)
+const isFormValid = ref(false)
 const formRef = ref<HTMLFormElement>()
 const nameInputRef = ref<HTMLInputElement>()
 
+// Enable form submission only when Turnstile token is available
+watch(turnstileToken, (token) => {
+  isFormValid.value = !!token
+})
+
 async function onSubmit (event: FormSubmitEvent<Schema>) {
+  if (!turnstileToken.value) {
+    showErrorToast(t('pages.contact.toast.error.turnstile'), { description: 'Please complete the security check' })
+    return
+  }
+
   isSending.value = true
 
   try {
     await $fetch('/api/contact', {
-      body: event.data,
-      headers: {
-        [headerName]: csrf,
+      body: {
+        ...event.data,
+        turnstileToken: turnstileToken.value,
       },
       method: 'POST',
     })
@@ -42,6 +56,9 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
     state.name = ''
     state.email = ''
     state.message = ''
+
+    // Reset Turnstile for next submission
+    turnstileRef.value?.reset()
 
     // Focus management after successful submission
     nextTick(() => {
@@ -127,11 +144,25 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
         class="w-full"
       />
     </UFormField>
+
+    <!-- Turnstile Widget -->
+    <div class="flex justify-center">
+      <NuxtTurnstile
+        ref="turnstileRef"
+        v-model="turnstileToken"
+        :options="{
+          theme: 'light',
+          size: 'normal',
+        }"
+      />
+    </div>
+
     <div class="pt-2">
       <UButton
         size="xl"
         type="submit"
         :loading="isSending"
+        :disabled="!isFormValid || isSending"
         :aria-label="t('pages.contact.form.ariaLabels.submitButton')"
         :aria-busy="isSending"
         block

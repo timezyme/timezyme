@@ -5,6 +5,7 @@ import { validateEmail } from '../../../utils/emailValidation'
 
 const bodySchema = z.object({
   email: z.string().email(),
+  turnstileToken: z.string(),
   // Honeypot field - should be empty for legitimate users
   website: z.string().optional(),
 })
@@ -13,9 +14,19 @@ const LOGGER_PREFIX = '[waitlist/subscribe.post]:'
 
 export default defineEventHandler(async (event) => {
   const body = await readValidatedBody(event, bodySchema.parse)
-  const { email, website } = body
+  const { email, turnstileToken, website } = body
 
   const serverLogger = useServerLogger()
+
+  // Verify Turnstile token first
+  const isValid = await verifyTurnstileToken(turnstileToken)
+  if (!isValid) {
+    serverLogger.warn(`${LOGGER_PREFIX} Invalid Turnstile token`, { email })
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Invalid security verification. Please try again.',
+    })
+  }
 
   // Check for honeypot field
   if (website && website.length > 0) {

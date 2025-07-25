@@ -9,7 +9,6 @@ const { token } = route.query
 const { showErrorToast, showSuccessToast } = useAppToast()
 const logger = useLogger()
 const { t } = useI18n()
-const { csrf } = useCsrf()
 
 const title = computed(() => t('pages.resetPassword.title'))
 const description = computed(() => t('pages.resetPassword.description'))
@@ -38,9 +37,6 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
   try {
     await $fetch('/api/auth/reset-password', {
       body: { code: token, password: event.data.password },
-      headers: {
-        'x-csrf-token': csrf,
-      },
       method: 'PATCH',
     })
 

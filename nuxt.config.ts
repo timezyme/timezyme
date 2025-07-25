@@ -111,6 +111,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/fonts',
     'nuxt-llms',
+    '@nuxtjs/turnstile',
   ],
 
   nitro: {
@@ -148,10 +149,10 @@ export default defineNuxtConfig({
 
   routeRules: {
     /* eslint-disable perfectionist/sort-objects */
-    '/': { prerender: false }, // Must be dynamic for CSRF to work with waitlist form
+    '/': { prerender: false }, // Must be dynamic for waitlist form
     '/blog': { prerender: true }, // individual blog posts are pre-rendered inside /blog component
     '/changelog': { prerender: true },
-    '/contact': { prerender: false }, // Must be dynamic for CSRF to work with contact form
+    '/contact': { prerender: false }, // Must be dynamic for contact form
     '/dashboard/**': { ssr: false },
     '/docs': { prerender: true }, // individual docs pages are pre-rendered inside /docs component
     '/faq': { prerender: true },
@@ -195,6 +196,9 @@ export default defineNuxtConfig({
       authEnabled: process.env.NUXT_PUBLIC_AUTH_ENABLED !== 'false',
       baseUrl: process.env.NUXT_PUBLIC_BASE_URL,
     },
+    turnstile: {
+      secretKey: process.env.NUXT_TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA', // Test secret for development
+    },
   },
 
   schemaOrg: {
@@ -205,7 +209,7 @@ export default defineNuxtConfig({
   },
 
   security: {
-    // Disable CSRF since we're using Cloudflare Turnstile for form protection
+    // CSRF disabled - will use Cloudflare Turnstile for form protection
     csrf: false,
     headers: {
       contentSecurityPolicy: {
@@ -252,6 +256,10 @@ export default defineNuxtConfig({
   },
 
   sitemap: { exclude: ['/admin/**'] },
+
+  turnstile: {
+    siteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA', // Test key for development
+  },
 
   typescript: {
     strict: true,

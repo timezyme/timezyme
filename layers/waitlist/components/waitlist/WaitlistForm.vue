@@ -11,7 +11,10 @@ type Schema = z.output<typeof schema>
 const { showErrorToast, showSuccessToast } = useAppToast()
 const { t } = useI18n()
 const logger = useLogger()
-const { csrf, headerName } = useCsrf()
+
+// Turnstile
+const turnstileToken = ref<string>('')
+const turnstileRef = ref()
 
 const state = reactive({
   email: '',
@@ -19,18 +22,27 @@ const state = reactive({
 })
 
 const isLoading = ref(false)
+const isFormValid = ref(false)
+
+// Enable form submission only when Turnstile token is available
+watch(turnstileToken, (token) => {
+  isFormValid.value = !!token
+})
 
 async function onSubmit (event: FormSubmitEvent<Schema>) {
+  if (!turnstileToken.value) {
+    showErrorToast(t('components.waitlistForm.toast.error.turnstile'), { description: 'Please complete the security check' })
+    return
+  }
+
   isLoading.value = true
 
   try {
     const response = await $fetch('/api/waitlist/subscribe', {
       body: {
         email: event.data.email,
+        turnstileToken: turnstileToken.value,
         website: event.data.website, // Include honeypot
-      },
-      headers: {
-        [headerName]: csrf,
       },
       method: 'POST',
     })
@@ -44,6 +56,9 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
     // Clear the form on success
     state.email = ''
     state.website = ''
+
+    // Reset Turnstile for next submission
+    turnstileRef.value?.reset()
   }
   catch (error: any) {
     logger.error('Failed to subscribe', error)
@@ -97,6 +112,7 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
             size="sm"
             type="submit"
             :loading="isLoading"
+            :disabled="!isFormValid || isLoading"
             variant="soft"
             color="primary"
           >
@@ -105,6 +121,18 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
         </template>
       </UInput>
     </UFormField>
+
+    <!-- Turnstile Widget -->
+    <div class="flex justify-center mt-4">
+      <NuxtTurnstile
+        ref="turnstileRef"
+        v-model="turnstileToken"
+        :options="{
+          theme: 'light',
+          size: 'normal',
+        }"
+      />
+    </div>
 
     <!-- Honeypot field - hidden from users but visible to bots -->
     <input

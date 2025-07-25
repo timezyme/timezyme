@@ -152,17 +152,6 @@ test.describe('Waitlist functionality', () => {
     await expect(submitButton).not.toHaveAttribute('data-loading', 'true')
   })
 
-  test('should have CSRF protection enabled', async ({ page }) => {
-    // Check if CSRF meta tag or cookie is present
-    const csrfCookie = await page.context().cookies()
-    const hasCsrfCookie = csrfCookie.some(cookie =>
-      cookie.name === 'csrf' || cookie.name.includes('csrf'),
-    )
-
-    // We expect CSRF protection to be active
-    expect(hasCsrfCookie).toBe(true)
-  })
-
   test('email verification flow', async ({ page }) => {
     // This test would need access to the email verification token
     // In a real scenario, you might:
