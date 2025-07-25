@@ -36,7 +36,6 @@ jobs:
 
       - name: Build & Deploy Preview to NuxtHub
         uses: nuxt-hub/action@v2
-        with:
-          deploy-args: --env=staging
         env:
           NUXT_HUB_PROJECT_KEY: timezyme-revq
+          NUXT_UI_PRO_LICENSE: ${{ secrets.NUXT_UI_PRO_LICENSE }}
