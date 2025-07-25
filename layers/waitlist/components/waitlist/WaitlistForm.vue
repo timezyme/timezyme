@@ -128,7 +128,7 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
         ref="turnstileRef"
         v-model="turnstileToken"
         :options="{
-          theme: 'light',
+          theme: 'dark',
           size: 'normal',
         }"
       />
