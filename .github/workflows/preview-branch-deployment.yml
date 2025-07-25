@@ -12,6 +12,8 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    env:
+      NUXT_UI_PRO_LICENSE: ${{ secrets.NUXT_UI_PRO_LICENSE }}
 
     steps:
       - uses: actions/checkout@v4
@@ -35,4 +37,3 @@ jobs:
         uses: nuxt-hub/action@v2
         env:
           NUXT_HUB_PROJECT_KEY: timezyme-revq
-          NUXT_UI_PRO_LICENSE: ${{ secrets.NUXT_UI_PRO_LICENSE }}
