@@ -1,4 +1,11 @@
 name: Preview Branch Deployment
+
+# This workflow deploys the preview branch to a staging environment
+# Prerequisites:
+# 1. Create a "staging" environment in GitHub Settings > Environments
+# 2. Add required secrets to the staging environment (see docs/preview-deployment-guide.md)
+# 3. Push to the preview branch to trigger deployment
+
 on:
   push:
     branches:
@@ -12,6 +19,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    # Uses GitHub staging environment for secrets
     environment: staging
 
     steps:
@@ -32,8 +40,22 @@ jobs:
       - name: Ensure NuxtHub module is installed
         run: pnpx nuxthub@latest ensure
 
+      # Backup production database before deployment (optional)
+      - name: Backup Database
+        if: github.event_name == 'push'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
+        run: |
+          echo "Creating database backup before deployment..."
+          ./scripts/db-backup-automated.sh preview || echo "Backup failed, continuing deployment"
+
       - name: Build & Deploy to NuxtHub
         uses: nuxt-hub/action@v2
         env:
           NUXT_HUB_PROJECT_KEY: timezyme-revq
+          # Environment-specific configuration
+          NUXT_HUB_ENV: preview
+          # All other secrets are accessed from the staging environment
           NUXT_UI_PRO_LICENSE: ${{ secrets.NUXT_UI_PRO_LICENSE }}

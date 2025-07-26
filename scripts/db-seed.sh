@@ -107,6 +107,8 @@ if ! grep -r "api/seed-user" app/server/api/ > /dev/null 2>&1; then
     mkdir -p app/server/api
     cat > app/server/api/seed-user.post.ts << 'EOF'
 import { eq } from 'drizzle-orm'
+import { useDB, tables } from '~~/layers/db/server/utils/db'
+import { generateId } from '~~/layers/core/utils/common'
 
 export default defineEventHandler(async (event) => {
   // Only allow in development
@@ -120,32 +122,25 @@ export default defineEventHandler(async (event) => {
   const { email, name, hashedPassword, role } = await readBody(event)
   
   try {
-    const db = await hubDatabase()
+    const db = useDB()
     
     // Check if user exists
     const existingUser = await db
       .select()
       .from(tables.users)
       .where(eq(tables.users.email, email))
-      .limit(1)
+      .get()
     
-    if (existingUser.length > 0) {
-      // Update existing user
+    if (existingUser) {
+      // Update existing user with hashedPassword field
       await db.update(tables.users)
         .set({
           name,
           role,
-          updatedAt: new Date()
-        })
-        .where(eq(tables.users.email, email))
-      
-      // Update password
-      await db.update(tables.passwords)
-        .set({
           hashedPassword,
           updatedAt: new Date()
         })
-        .where(eq(tables.passwords.userId, existingUser[0].id))
+        .where(eq(tables.users.email, email))
       
       return { updated: true, email }
     } else {
@@ -158,13 +153,6 @@ export default defineEventHandler(async (event) => {
           email,
           name,
           role,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        })
-      
-      await db.insert(tables.passwords)
-        .values({
-          userId,
           hashedPassword,
           createdAt: new Date(),
           updatedAt: new Date()

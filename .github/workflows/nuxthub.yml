@@ -6,8 +6,32 @@ on:
   workflow_dispatch:
 
 jobs:
+  backup:
+    name: "Backup Production Database"
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create Database Backup
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
+        run: |
+          echo "Creating production database backup before deployment..."
+          ./scripts/db-backup-automated.sh production || echo "Backup failed, continuing deployment"
+          
+      - name: Upload backup logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backup-logs
+          path: .backups/*.json
+
   deploy:
     name: "Deploy to NuxtHub"
+    needs: [backup]
     runs-on: ubuntu-latest
     permissions:
       contents: read

@@ -8,9 +8,21 @@
       "command": "docker",
       "args": ["run", "-i", "--rm", "mcp/playwright"]
     },
-    "cloudflare": {
+    "cloudflare-docs": {
       "command": "npx",
       "args": ["mcp-remote", "https://docs.mcp.cloudflare.com/sse"]
+    },
+    "cloudflare-workers": {
+      "command": "npx",
+      "args": ["mcp-remote", "https://bindings.mcp.cloudflare.com/sse"]
+    },
+    "cloudflare-workers-builds": {
+      "command": "npx",
+      "args": ["mcp-remote@latest", "https://builds.mcp.cloudflare.com/sse"]
+    },
+    "cloudflare-observability": {
+      "command": "npx",
+      "args": ["mcp-remote", "https://observability.mcp.cloudflare.com/sse"]
     },
     "snap-happy": {
       "command": "npx",

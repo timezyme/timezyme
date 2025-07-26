@@ -22,7 +22,6 @@ logs
 # Local env files
 .env
 .env.*
-!.env.example
 
 # Playwright
 /test-results/
@@ -111,7 +110,12 @@ pnpm-error.log*
 
 # Claude Code configuration and memories
 CLAUDE.md
-.claude/*
+.claude/
+
+# Local documentation files
+PREVIEW_DEPLOYMENT_GUIDE.md
+SUPER_CLAUDE_DAILY_WORKFLOW.md
+SUPER_CLAUDE_USAGE.md
 
 # Environment files (already included but being explicit)
 .env
