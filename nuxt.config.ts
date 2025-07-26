@@ -46,7 +46,6 @@ export default defineNuxtConfig({
     './layers/payment',
     './layers/docs',
     './layers/docs2',
-    './layers/blog',
     './layers/testimonials',
     './layers/waitlist',
   ],

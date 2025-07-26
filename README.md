@@ -28,7 +28,6 @@ Built on a modern tech stack leveraging Nuxt 4's modular layer system:
 - **dashboard**: User and admin dashboards
 - **payment**: Subscription and billing management
 - **docs**: Documentation system
-- **blog**: Content management
 - **waitlist**: Early access system
 
 ## 🚀 Quick Start
