@@ -132,7 +132,6 @@ export default defineNuxtConfig({
             // we know that the following pages are pre-rendered
             // see https://hub.nuxt.com/docs/recipes/pre-rendering#cloudflare-100-routes-limit
             '/docs/*',
-            '/blog/*',
           ],
         },
       },
@@ -160,7 +159,6 @@ export default defineNuxtConfig({
   routeRules: {
     /* eslint-disable perfectionist/sort-objects */
     '/': { prerender: false }, // Must be dynamic for waitlist form
-    '/blog': { prerender: true }, // individual blog posts are pre-rendered inside /blog component
     '/changelog': { prerender: true },
     '/contact': { prerender: false }, // Must be dynamic for contact form
     '/dashboard/**': { ssr: false },
