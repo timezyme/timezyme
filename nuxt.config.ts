@@ -57,17 +57,6 @@ export default defineNuxtConfig({
   },
 
   hub: {
-    // Additional bindings for preview database
-    bindings: {
-      // @ts-expect-error - d1_databases is a valid property but not in the type definition yet
-      d1_databases: {
-        // This will be available when the D1 database is created in Cloudflare
-        // The database_id will need to be added after creation
-        DB_PREVIEW: {
-          database_id: process.env.NUXT_DB_PREVIEW_ID || '',
-        },
-      },
-    },
     blob: true,
     database: true,
     kv: true,

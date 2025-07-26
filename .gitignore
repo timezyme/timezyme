@@ -111,6 +111,7 @@ pnpm-error.log*
 # Claude Code configuration and memories
 CLAUDE.md
 .claude/
+.claude/commands/example-output.md
 
 # Local documentation files
 PREVIEW_DEPLOYMENT_GUIDE.md
